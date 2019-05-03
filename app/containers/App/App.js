@@ -38,12 +38,12 @@ export default function App({ authToken, saveKey }) {
     return (
       <React.Fragment>
         <Helmet
-          titleTemplate="%s - React.js Boilerplate"
-          defaultTitle="React.js Boilerplate"
+          titleTemplate="%s - Simple Finance Manager"
+          defaultTitle="Simple Finance Manager"
         >
           <meta
             name="description"
-            content="A React.js Boilerplate application"
+            content="A simple app for helping you manage your finances"
           />
         </Helmet>
         <Switch>

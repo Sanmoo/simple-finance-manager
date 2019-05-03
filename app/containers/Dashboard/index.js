@@ -1,13 +1,15 @@
+import { memo } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
-import App from './App';
+import Dashboard from './Dashboard';
 import { saveKey } from './actions';
-import { makeSelectAuthToken } from './selectors';
+import { makeSelectSId, makeSelectDashInfo } from './selectors';
 
 const mapStateToProps = createStructuredSelector({
-  authToken: makeSelectAuthToken(),
+  sId: makeSelectSId(),
+  dashInfo: makeSelectDashInfo(),
 });
 
 const withConnect = connect(
@@ -15,4 +17,7 @@ const withConnect = connect(
   { saveKey },
 );
 
-export default compose(withConnect)(App);
+export default compose(
+  withConnect,
+  memo,
+)(Dashboard);

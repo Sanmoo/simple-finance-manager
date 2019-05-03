@@ -113,6 +113,8 @@ module.exports = options => ({
     // drop any unreachable code.
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'development',
+      GOOGLE_API_KEY: undefined,
+      GOOGLE_CLIENT_ID: undefined,
     }),
   ]),
   resolve: {

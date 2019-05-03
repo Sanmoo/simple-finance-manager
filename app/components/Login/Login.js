@@ -46,6 +46,7 @@ export default function Login({ onGetAuthToken }) {
           clientId={process.env.GOOGLE_CLIENT_ID}
           buttonText="LOGIN WITH GOOGLE"
           onSuccess={googleAuthCallback}
+          uxMode="redirect"
           onFailure={googleAuthCallback}
           autoLoad
         />

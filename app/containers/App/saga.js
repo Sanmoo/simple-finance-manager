@@ -12,7 +12,6 @@ export function* handleSaveKey({ key, value }) {
 }
 
 export function* handleSignOff() {
-  console.log('Passou por aqui');
   window.localStorage.clear();
 }
 

@@ -8,6 +8,7 @@ import { useInjectReducer } from 'utils/injectReducer';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import { useInjectSaga } from 'utils/injectSaga';
 import { syncLocalCache, getDashboardInfo } from 'utils/business';
+import ConfirmationDialog from 'components/ConfirmationDialog/Loadable';
 import Typography from './Typography';
 import DashboardContent from './DashboardContent';
 import reducer from './reducer';
@@ -16,6 +17,11 @@ import saga from './saga';
 const key = 'dashboard';
 
 export default function Dashboard({ sId, saveKey, dashInfo, onSignOff }) {
+  // TODO refactor this reducer and saga injection to index.js
+  useInjectReducer({ key, reducer });
+  useInjectSaga({ key, saga });
+
+  // Get Dashboard Info
   useEffect(() => {
     if (sId) {
       syncLocalCache(sId)
@@ -23,12 +29,27 @@ export default function Dashboard({ sId, saveKey, dashInfo, onSignOff }) {
         .then(value => saveKey('dashInfo', value));
     }
   }, [sId, saveKey]);
-  useInjectReducer({ key, reducer });
-  useInjectSaga({ key, saga });
   const [anchorEl, setAnchorEl] = useState(null);
+
+  // TODO Refactor App Bar to dedicated container
+
+  // Setup Callbacks
   const onSubmitSId = useCallback(value => saveKey('spreadsheetId', value), [
     saveKey,
   ]);
+  const [signOffDialogOpened, setSignOffDialogOpened] = useState(false);
+  const onSignOffMenuClicked = useCallback(
+    () => setSignOffDialogOpened(true),
+    [],
+  );
+  const onSignOffDialogDismiss = useCallback(
+    () => setSignOffDialogOpened(false),
+    [],
+  );
+  const onSignOffDialogConfirm = useCallback(() => {
+    setSignOffDialogOpened(false);
+    onSignOff();
+  }, [onSignOff]);
 
   const open = Boolean(anchorEl);
 
@@ -69,7 +90,7 @@ export default function Dashboard({ sId, saveKey, dashInfo, onSignOff }) {
               <MenuItem
                 onClick={() => {
                   setAnchorEl(null);
-                  onSignOff();
+                  onSignOffMenuClicked();
                 }}
               >
                 Sign off
@@ -79,6 +100,12 @@ export default function Dashboard({ sId, saveKey, dashInfo, onSignOff }) {
         </Toolbar>
       </AppBar>
       <DashboardContent {...dashInfo} />
+      <ConfirmationDialog
+        opened={signOffDialogOpened}
+        onDismiss={onSignOffDialogDismiss}
+        onConfirm={onSignOffDialogConfirm}
+        content="Tem certeza que deseja sair?"
+      />
     </React.Fragment>
   );
 }

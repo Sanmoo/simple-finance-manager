@@ -8,24 +8,16 @@
  */
 
 import React, { useCallback } from 'react';
-import { useInjectReducer } from 'utils/injectReducer';
-import { useInjectSaga } from 'utils/injectSaga';
 import PropTypes from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import Dashboard from 'containers/Dashboard/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import Login from 'components/Login';
-import reducer from './reducer';
-import saga from './saga';
 
 import GlobalStyle from '../../global-styles';
 
-const key = 'global';
-
 export default function App({ authToken, saveKey }) {
-  useInjectReducer({ key, reducer });
-  useInjectSaga({ key, saga });
   const saveToken = useCallback(token => saveKey('authToken', token), [
     saveKey,
   ]);

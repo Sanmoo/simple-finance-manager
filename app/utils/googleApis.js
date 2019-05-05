@@ -1,4 +1,4 @@
-const GAPI_INIT_TIMEOUT = 1600;
+const GAPI_INIT_TIMEOUT = 5000;
 
 /**
  * Makes sure Google APIs are initialized and ready to be used
@@ -6,12 +6,8 @@ const GAPI_INIT_TIMEOUT = 1600;
 export function initGApi() {
   return new Promise((resolve, reject) => {
     gapi.load('client:auth2', () => {
-      if (!gapi.auth2) {
-        return reject();
-      }
-
       const authInstance = gapi.auth2.getAuthInstance();
-      if (authInstance) {
+      if (authInstance && gapi.client.sheets) {
         const authState = authInstance.isSignedIn.get();
         if (authState) {
           return resolve();
@@ -20,10 +16,7 @@ export function initGApi() {
 
       const API_KEY = process.env.GOOGLE_API_KEY;
       const CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
-
-      // TODO: Authorize this other scope
-      //   'https://www.googleapis.com/auth/spreadsheets'
-      const SCOPE = 'https://www.googleapis.com/auth/spreadsheets.readonly';
+      const SCOPE = 'https://www.googleapis.com/auth/spreadsheets';
 
       gapi.client
         .init({
@@ -39,7 +32,7 @@ export function initGApi() {
       // Workaround: gapi.client.init seems buggy, never resolves or rejects
       return setTimeout(() => {
         const authInstance2 = gapi.auth2.getAuthInstance();
-        if (authInstance2) {
+        if (authInstance2 && gapi.client.sheets) {
           const authState = authInstance2.isSignedIn.get();
           if (authState) {
             return resolve();

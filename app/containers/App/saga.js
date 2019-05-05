@@ -3,7 +3,7 @@
  */
 
 import { takeLatest } from 'redux-saga/effects';
-import { SAVE_KEY } from 'containers/App/constants';
+import { SAVE_KEY, SIGN_OFF } from 'containers/App/constants';
 
 export function* handleSaveKey({ key, value }) {
   if (key === 'authToken') {
@@ -11,6 +11,12 @@ export function* handleSaveKey({ key, value }) {
   }
 }
 
+export function* handleSignOff() {
+  console.log('Passou por aqui');
+  window.localStorage.clear();
+}
+
 export default function* saga() {
   yield takeLatest(SAVE_KEY, handleSaveKey);
+  yield takeLatest(SIGN_OFF, handleSignOff);
 }

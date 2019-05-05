@@ -10,3 +10,4 @@
  */
 
 export const SAVE_KEY = 'sfm/App/SAVE_KEY';
+export const SIGN_OFF = 'sfm/App/SIGN_OFF';

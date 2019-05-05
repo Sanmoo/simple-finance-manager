@@ -2,6 +2,7 @@ import { memo } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
+import { signOff } from 'containers/App/actions';
 
 import Dashboard from './Dashboard';
 import { saveKey } from './actions';
@@ -14,7 +15,7 @@ const mapStateToProps = createStructuredSelector({
 
 const withConnect = connect(
   mapStateToProps,
-  { saveKey },
+  { saveKey, onSignOff: signOff },
 );
 
 export default compose(

@@ -46,9 +46,10 @@ export default function Login({ onGetAuthToken }) {
           clientId={process.env.GOOGLE_CLIENT_ID}
           buttonText="LOGIN WITH GOOGLE"
           onSuccess={googleAuthCallback}
-          uxMode="redirect"
           onFailure={googleAuthCallback}
-          autoLoad
+          scope="profile email https://www.googleapis.com/auth/spreadsheets"
+          discoveryDocs="https://developers.google.com/discovery/v1/using,https://sheets.googleapis.com/$discovery/rest?version=v4"
+          autoLoad={false}
         />
       </InnerContainer>
     </Container>

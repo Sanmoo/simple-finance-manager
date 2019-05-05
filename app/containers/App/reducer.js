@@ -26,7 +26,8 @@ const appReducer = (state = initialState, action) =>
         draft[action.key] = action.value;
         break;
       case SIGN_OFF:
-        return initialState;
+        draft.authToken = null;
+        break;
     }
   });
 

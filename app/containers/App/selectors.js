@@ -44,6 +44,12 @@ const makeSelectAuthToken = () =>
     globalState => globalState && globalState.authToken,
   );
 
+const makeSelectSId = () =>
+  createSelector(
+    selectGlobal,
+    globalState => globalState.spreadsheetId,
+  );
+
 export {
   selectGlobal,
   makeSelectCurrentUser,
@@ -52,4 +58,5 @@ export {
   makeSelectRepos,
   makeSelectLocation,
   makeSelectAuthToken,
+  makeSelectSId,
 };

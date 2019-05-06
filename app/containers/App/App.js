@@ -12,6 +12,8 @@ import PropTypes from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import Dashboard from 'containers/Dashboard/Loadable';
+import EditEntryPage from 'containers/EditEntryPage/Loadable';
+import SnackbarContainer from 'containers/SnackbarContainer';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import Login from 'components/Login';
 
@@ -40,9 +42,11 @@ export default function App({ authToken, saveKey }) {
         </Helmet>
         <Switch>
           <Route exact path="/" component={Dashboard} />
+          <Route exact path="/entry" component={EditEntryPage} />
           <Route path="" component={NotFoundPage} />
         </Switch>
         <GlobalStyle />
+        <SnackbarContainer />
       </React.Fragment>
     );
   }

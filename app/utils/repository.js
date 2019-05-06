@@ -21,7 +21,7 @@ export const cleanUpEntriesForSheetTitle = sheetTitleForCurrentMonth => {
 };
 
 export const cleanUpCategoryGoalsForSheetTitle = sheetTitle => {
-  db.entries
+  db.categoryGoal
     .where('originSheetTitle')
     .equalsIgnoreCase(sheetTitle)
     .delete();
@@ -47,4 +47,33 @@ export async function getTotalReceiptFromSheet(sheetTitle) {
 async function getAggregateSum(collection, query) {
   const records = await db[collection].where(query).toArray();
   return records.reduce((acc, cur) => acc + parseFloat(cur.value), 0);
+}
+
+export async function loadCategoryNames(query) {
+  const records = await db.categoryGoal.where(query).toArray();
+  return records.map(r => r.name);
+}
+
+export async function addNewEntry(values) {
+  const {
+    type,
+    date,
+    description,
+    credit,
+    value,
+    category,
+    originSheetTitle,
+  } = values;
+
+  const cacheObj = {
+    type,
+    desc: description,
+    date,
+    credit,
+    value,
+    category,
+    originSheetTitle,
+  };
+
+  await db.entries.put(cacheObj);
 }

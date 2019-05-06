@@ -1,6 +1,11 @@
 import { flatten } from 'lodash';
 import { getSpreadsheetRange, initGApi } from 'utils/googleApis';
 import { TYPE_EXPENSE, TYPE_RECEIPT } from 'utils/businessConstants';
+import format from 'date-fns/format';
+
+const EXPENSE_ENTRIES_RANGE = 'A2:E';
+const RECEIPT_ENTRIES_RANGE = 'M2:P';
+const SPREADSHEET_DATE_FORMAT = 'dd/MM/yyyy';
 
 export async function collectCategoryGoalsFromSpreadsheet(
   spreadsheetId,
@@ -45,7 +50,7 @@ export async function collectExpensesFromSpreadsheet(
 ) {
   return (await getSpreadsheetRange({
     spreadsheetId,
-    range: `${sheetTitle}!A2:E`,
+    range: `${sheetTitle}!${EXPENSE_ENTRIES_RANGE}`,
   })).values.map(([date, desc, isCredit, category, value], index) => ({
     line: index,
     date,
@@ -76,7 +81,7 @@ export async function collectReceiptsFromSpreadsheet(
 ) {
   return (await getSpreadsheetRange({
     spreadsheetId,
-    range: `${sheetTitle}!M2:P`,
+    range: `${sheetTitle}!${RECEIPT_ENTRIES_RANGE}`,
   })).values.map(([date, desc, category, value], index) => ({
     line: index,
     date,
@@ -87,4 +92,42 @@ export async function collectReceiptsFromSpreadsheet(
     originSheetTitle: sheetTitle,
     type: TYPE_RECEIPT,
   }));
+}
+
+export async function addNewEntry(values) {
+  await initGApi();
+
+  const {
+    type,
+    date,
+    description,
+    credit,
+    value,
+    category,
+    spreadsheetId,
+  } = values;
+  const requestParams = {
+    spreadsheetId,
+    range:
+      type === TYPE_EXPENSE ? EXPENSE_ENTRIES_RANGE : RECEIPT_ENTRIES_RANGE,
+    insertDataOption: 'OVERWRITE',
+    valueInputOption: 'RAW',
+  };
+  const requestBody = {
+    majorDimension: 'ROWS',
+    values: [
+      [
+        format(date, SPREADSHEET_DATE_FORMAT),
+        description,
+        credit ? 'y' : 'n',
+        category,
+        value,
+      ],
+    ],
+  };
+
+  await gapi.client.sheets.spreadsheets.values.append(
+    requestParams,
+    requestBody,
+  );
 }

@@ -8,11 +8,15 @@ import {
   addCategoryGoals,
   getTotalExpensesFromSheet,
   getTotalReceiptFromSheet,
+  loadCategoryNames,
+  addNewEntry as addNewEntryCache,
 } from 'utils/repository';
 import {
   collectEntriesFromSpreadsheet,
   collectCategoryGoalsFromSpreadsheet,
+  addNewEntry as addNewEntryRemote,
 } from 'utils/spreadsheet';
+import { TYPE_EXPENSE, TYPE_RECEIPT } from 'utils/businessConstants';
 
 export const getSheetTitleForCurrentMonth = () =>
   capitalize(
@@ -44,4 +48,26 @@ export async function getDashboardInfo() {
     totalExpenses: await getTotalExpensesFromSheet(sheetTitle),
     totalReceipt: await getTotalReceiptFromSheet(sheetTitle),
   };
+}
+
+export function loadExpenseCategoriesFromCurrentMonthCategoryGoals() {
+  const sheetTitle = getSheetTitleForCurrentMonth();
+  return loadCategoryNames({
+    type: TYPE_EXPENSE,
+    originSheetTitle: sheetTitle,
+  });
+}
+
+export function loadReceiptCategoriesFromCurrentMonthCategoryGoals() {
+  const sheetTitle = getSheetTitleForCurrentMonth();
+  return loadCategoryNames({
+    type: TYPE_RECEIPT,
+    originSheetTitle: sheetTitle,
+  });
+}
+
+export async function addNewEntry(formValues) {
+  const sheetTitle = getSheetTitleForCurrentMonth();
+  await addNewEntryRemote(formValues);
+  await addNewEntryCache({ ...formValues, originSheetTitle: sheetTitle });
 }

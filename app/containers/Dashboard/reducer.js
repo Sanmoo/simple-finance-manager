@@ -4,7 +4,6 @@ import { SAVE_KEY } from './constants';
 
 // The initial state of the App
 export const initialState = {
-  spreadsheetId: window.localStorage.getItem('spreadsheetId'),
   dashInfo: { totalExpenses: 0, totalReceipt: 0 },
 };
 

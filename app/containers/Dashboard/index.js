@@ -10,7 +10,10 @@ import { saveKey as saveGlobalKey } from 'containers/App/actions';
 
 import Dashboard from './Dashboard';
 import { saveKey } from './actions';
-import { makeSelectDashInfo } from './selectors';
+import {
+  makeSelectDashInfo,
+  makeSelectAddEntryButtonEnabled,
+} from './selectors';
 
 import reducer from './reducer';
 import saga from './saga';
@@ -18,6 +21,7 @@ import saga from './saga';
 const mapStateToProps = createStructuredSelector({
   sId: makeSelectSId(),
   dashInfo: makeSelectDashInfo(),
+  addEntryButtonEnabled: makeSelectAddEntryButtonEnabled(),
 });
 
 export function mapDispatchToProps(dispatch) {

@@ -24,12 +24,14 @@ function Dashboard({
   classes,
   onAddClick,
   onSpreadsheetIdProvided,
+  addEntryButtonEnabled,
 }) {
   useEffect(() => {
     if (sId) {
       syncLocalCache(sId)
         .then(getDashboardInfo)
-        .then(value => saveKey('dashInfo', value));
+        .then(value => saveKey('dashInfo', value))
+        .then(() => saveKey('addEntryButtonEnabled', true));
     }
   }, [sId, saveKey]);
 
@@ -41,14 +43,16 @@ function Dashboard({
     <>
       <SfmNavBar />
       <DashboardContent {...dashInfo} />
-      <Fab
-        color="primary"
-        aria-label="Add"
-        className={classes.fab}
-        onClick={onAddClick}
-      >
-        <AddIcon />
-      </Fab>
+      {addEntryButtonEnabled && (
+        <Fab
+          color="primary"
+          aria-label="Add"
+          className={classes.fab}
+          onClick={onAddClick}
+        >
+          <AddIcon />
+        </Fab>
+      )}
     </>
   );
 }
@@ -60,6 +64,7 @@ Dashboard.propTypes = {
   dashInfo: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
   onAddClick: PropTypes.func.isRequired,
+  addEntryButtonEnabled: PropTypes.bool.isRequired,
 };
 
 export default withStyles(styles)(Dashboard);

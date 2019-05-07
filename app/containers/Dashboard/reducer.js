@@ -5,6 +5,7 @@ import { SAVE_KEY } from './constants';
 // The initial state of the App
 export const initialState = {
   dashInfo: { totalExpenses: 0, totalReceipt: 0 },
+  addEntryButtonEnabled: false,
 };
 
 /* eslint-disable default-case, no-param-reassign, consistent-return */

@@ -9,4 +9,10 @@ const makeSelectDashInfo = () =>
     dashState => dashState.dashInfo,
   );
 
-export { selectDashboard, makeSelectDashInfo };
+const makeSelectAddEntryButtonEnabled = () =>
+  createSelector(
+    selectDashboard,
+    dashState => dashState.addEntryButtonEnabled,
+  );
+
+export { selectDashboard, makeSelectDashInfo, makeSelectAddEntryButtonEnabled };

@@ -1,4 +1,4 @@
-import { capitalize } from 'lodash';
+import { capitalize, sumBy } from 'lodash';
 import format from 'date-fns/format';
 import pt from 'date-fns/locale/pt';
 import {
@@ -6,8 +6,8 @@ import {
   cleanUpCategoryGoalsForSheetTitle,
   addEntries,
   addCategoryGoals,
-  getTotalExpensesFromSheet,
-  getTotalReceiptFromSheet,
+  getExpensesFromSheet,
+  getCategoryGoalsFromSheet,
   loadCategoryNames,
   addNewEntry as addNewEntryCache,
 } from 'utils/repository';
@@ -41,13 +41,29 @@ export async function syncLocalCache(sId) {
   await Promise.all([addEntries(entries), addCategoryGoals(categoryGoals)]);
 }
 
+function getPercentage(total, partial) {
+  return total !== 0 ? partial / total : partial;
+}
+
 export async function getDashboardInfo() {
   const sheetTitle = getSheetTitleForCurrentMonth();
+  const [categoryExpenses, expenses] = await Promise.all([
+    getCategoryGoalsFromSheet(sheetTitle),
+    getExpensesFromSheet(sheetTitle),
+  ]);
 
-  return {
-    totalExpenses: await getTotalExpensesFromSheet(sheetTitle),
-    totalReceipt: await getTotalReceiptFromSheet(sheetTitle),
-  };
+  const returned = categoryExpenses.map(categoryExpense => ({
+    name: categoryExpense.name,
+    goal: parseFloat(categoryExpense.value || 0),
+    actualPercentage: getPercentage(
+      parseFloat(categoryExpense.value || 0),
+      sumBy(expenses.filter(e => e.category === categoryExpense.name), e =>
+        parseFloat(e.value || 0),
+      ),
+    ),
+  }));
+
+  return returned;
 }
 
 export function loadExpenseCategoriesFromCurrentMonthCategoryGoals() {

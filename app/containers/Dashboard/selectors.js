@@ -11,8 +11,8 @@ const makeSelectDashInfo = () =>
 
 const makeSelectAddEntryButtonEnabled = () =>
   createSelector(
-    selectDashboard,
-    dashState => dashState.addEntryButtonEnabled,
+    makeSelectDashInfo(),
+    dashInfo => dashInfo && dashInfo.length > 0,
   );
 
 export { selectDashboard, makeSelectDashInfo, makeSelectAddEntryButtonEnabled };

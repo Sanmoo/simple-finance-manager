@@ -49,7 +49,7 @@ function SnackbarContainer({ open, onClose, message, classes }) {
 SnackbarContainer.propTypes = {
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  message: PropTypes.string.isRequired,
+  message: PropTypes.string,
   classes: PropTypes.object.isRequired,
 };
 

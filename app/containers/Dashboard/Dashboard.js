@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import SpreadsheetIdInputCard from 'components/SpreadsheetIdInputCard';
 import { syncLocalCache, getDashboardInfo } from 'utils/business';
 import SfmNavBar from 'containers/SfmNavBar';
@@ -17,6 +18,10 @@ const styles = theme => ({
   },
 });
 
+const DashboardContainer = styled.div`
+  padding-bottom: 56px;
+`;
+
 function Dashboard({
   sId,
   saveKey,
@@ -30,8 +35,7 @@ function Dashboard({
     if (sId) {
       syncLocalCache(sId)
         .then(getDashboardInfo)
-        .then(value => saveKey('dashInfo', value))
-        .then(() => saveKey('addEntryButtonEnabled', true));
+        .then(value => saveKey('dashInfo', value));
     }
   }, [sId, saveKey]);
 
@@ -40,9 +44,9 @@ function Dashboard({
   }
 
   return (
-    <>
+    <DashboardContainer>
       <SfmNavBar />
-      <DashboardContent {...dashInfo} />
+      <DashboardContent dashInfo={dashInfo} />
       {addEntryButtonEnabled && (
         <Fab
           color="primary"
@@ -53,7 +57,7 @@ function Dashboard({
           <AddIcon />
         </Fab>
       )}
-    </>
+    </DashboardContainer>
   );
 }
 
@@ -61,7 +65,7 @@ Dashboard.propTypes = {
   sId: PropTypes.string,
   saveKey: PropTypes.func.isRequired,
   onSpreadsheetIdProvided: PropTypes.func.isRequired,
-  dashInfo: PropTypes.object.isRequired,
+  dashInfo: PropTypes.any,
   classes: PropTypes.object.isRequired,
   onAddClick: PropTypes.func.isRequired,
   addEntryButtonEnabled: PropTypes.bool.isRequired,

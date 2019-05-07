@@ -4,6 +4,7 @@ import {
   TYPE_EXPENSE,
   TYPE_RECEIPT,
 } from 'utils/businessConstants';
+import { sumBy } from 'lodash';
 
 // Database and Collections Setup
 const db = new Dexie(DATABASE_NAME);
@@ -30,6 +31,20 @@ export const cleanUpCategoryGoalsForSheetTitle = sheetTitle => {
 export const addEntries = entries => db.entries.bulkPut(entries);
 export const addCategoryGoals = cGoals => db.categoryGoal.bulkPut(cGoals);
 
+export async function getExpensesFromSheet(sheetTitle) {
+  return get('entries', {
+    originSheetTitle: sheetTitle,
+    type: TYPE_EXPENSE,
+  });
+}
+
+export async function getCategoryGoalsFromSheet(sheetTitle) {
+  return get('categoryGoal', {
+    originSheetTitle: sheetTitle,
+    type: TYPE_EXPENSE,
+  });
+}
+
 export async function getTotalExpensesFromSheet(sheetTitle) {
   return getAggregateSum('entries', {
     originSheetTitle: sheetTitle,
@@ -44,13 +59,17 @@ export async function getTotalReceiptFromSheet(sheetTitle) {
   });
 }
 
+async function get(collection, query) {
+  return db[collection].where(query).toArray();
+}
+
 async function getAggregateSum(collection, query) {
-  const records = await db[collection].where(query).toArray();
-  return records.reduce((acc, cur) => acc + parseFloat(cur.value), 0);
+  const records = await get(collection, query);
+  return sumBy(records, record => parseFloat(record.value));
 }
 
 export async function loadCategoryNames(query) {
-  const records = await db.categoryGoal.where(query).toArray();
+  const records = await get('categoryGoal', query);
   return records.map(r => r.name);
 }
 

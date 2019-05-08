@@ -9,6 +9,10 @@ export function* handleSaveKey({ key, value }) {
   if (key === 'authToken') {
     localStorage.setItem('authToken', value);
   }
+
+  if (key === 'spreadsheetId') {
+    localStorage.setItem('spreadsheetId', value);
+  }
 }
 
 export function* handleSignOff() {

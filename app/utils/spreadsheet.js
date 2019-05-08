@@ -109,7 +109,7 @@ export async function addNewEntry(values) {
       [
         format(date, SPREADSHEET_DATE_FORMAT),
         description,
-        credit ? 'y' : 'n',
+        ...(type === TYPE_EXPENSE ? [credit ? 'y' : 'n'] : []),
         category,
         value,
       ],

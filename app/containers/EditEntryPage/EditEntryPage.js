@@ -19,9 +19,13 @@ import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
 import format from 'date-fns/format';
 import parse from 'date-fns/parse';
-import { loadExpenseCategoriesFromCurrentMonthCategoryGoals } from 'utils/business';
+import {
+  loadExpenseCategoriesFromCurrentMonthCategoryGoals,
+  loadIncomeCategoriesFromCurrentMonthCategoryGoals,
+} from 'utils/business';
 import { TYPE_EXPENSE } from 'utils/businessConstants';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import queryString from 'query-string';
 import messages from './messages';
 
 const styles = theme => ({
@@ -54,6 +58,15 @@ const styles = theme => ({
   },
 });
 
+const modeFromLocation = location => {
+  if (location && location.search) {
+    const { mode } = queryString.parse(location.search);
+    return mode;
+  }
+
+  return TYPE_EXPENSE;
+};
+
 export function EditEntryPage({
   classes,
   intl: { formatMessage },
@@ -66,6 +79,7 @@ export function EditEntryPage({
   onCategoriesLoaded,
   spreadsheetId,
   submitInProgress,
+  location,
 }) {
   const updateFormNumber = useCallback(
     evt => {
@@ -79,18 +93,28 @@ export function EditEntryPage({
     [value, updateFormValue],
   );
   useEffect(() => {
-    loadExpenseCategoriesFromCurrentMonthCategoryGoals().then(
-      onCategoriesLoaded,
-    );
-  }, []);
+    const mode = modeFromLocation(location);
+    let promise;
+    if (mode === TYPE_EXPENSE) {
+      promise = loadExpenseCategoriesFromCurrentMonthCategoryGoals();
+    } else {
+      promise = loadIncomeCategoriesFromCurrentMonthCategoryGoals();
+    }
+    promise.then(onCategoriesLoaded);
+  }, [location]);
 
   const submitDisabled =
     !date || !description || !category || value === 0 || submitInProgress;
 
+  const mode = modeFromLocation(location);
+
+  const title =
+    mode === TYPE_EXPENSE ? 'Adicionar Despesa' : 'Adicionar Receita';
+
   return (
     <div>
       <Helmet>
-        <title>Adicionar Entrada</title>
+        <title>{title}</title>
         <meta
           name="description"
           content="Adicione uma nova entrada na planilha"
@@ -120,17 +144,19 @@ export function EditEntryPage({
           onChange={evt => updateFormValue('description', evt.target.value)}
           margin="dense"
         />
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={credit}
-              onChange={evt => updateFormValue('credit', evt.target.checked)}
-              color="primary"
-            />
-          }
-          className={classes.textField}
-          label={formatMessage(messages.credit)}
-        />
+        {mode === TYPE_EXPENSE && (
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={credit}
+                onChange={evt => updateFormValue('credit', evt.target.checked)}
+                color="primary"
+              />
+            }
+            className={classes.textField}
+            label={formatMessage(messages.credit)}
+          />
+        )}
         <TextField
           id="entry-category"
           select
@@ -171,7 +197,11 @@ export function EditEntryPage({
           size="small"
           className={classes.button}
           onClick={() =>
-            onSubmit({ ...formValues, type: TYPE_EXPENSE, spreadsheetId })
+            onSubmit({
+              ...formValues,
+              type: mode,
+              spreadsheetId,
+            })
           }
           disabled={submitDisabled}
         >
@@ -219,6 +249,9 @@ EditEntryPage.propTypes = {
   onCategoriesLoaded: PropTypes.func.isRequired,
   spreadsheetId: PropTypes.string.isRequired,
   submitInProgress: PropTypes.bool.isRequired,
+  location: PropTypes.shape({
+    search: PropTypes.string.isRequired,
+  }),
 };
 
 export default withStyles(styles)(injectIntl(EditEntryPage));

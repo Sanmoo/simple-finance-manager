@@ -36,11 +36,12 @@ export async function syncLocalCache(sId) {
     sId,
     sheetTitle,
   );
+
   await Promise.all([addEntries(entries), addCategoryGoals(categoryGoals)]);
 }
 
 function getPercentage(total, partial) {
-  return total !== 0 ? partial / total : partial;
+  return parseFloat((total !== 0 ? partial / total : partial).toFixed(2));
 }
 
 export async function getDashboardInfo() {

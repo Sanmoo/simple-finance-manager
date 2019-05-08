@@ -41,6 +41,10 @@ const formatActualUsage = (basis, value) => {
     return formatPercentage(value);
   }
 
+  if (value === 0) {
+    return <GreenSpan>{value}</GreenSpan>;
+  }
+
   return <RedSpan>{value}</RedSpan>;
 };
 

@@ -10,8 +10,9 @@ import { sumBy } from 'lodash';
 const db = new Dexie(DATABASE_NAME);
 db.version(1).stores({
   entries:
-    'line,date,desc,credit,category,value,originSheetTitle,type,[originSheetTitle+type]',
-  categoryGoal: 'line,name,type,value,originSheetTitle,[originSheetTitle+type]',
+    '[line+type+originSheetTitle],type,originSheetTitle,date,desc,credit,category,value,[originSheetTitle+type]',
+  categoryGoal:
+    '[line+type+originSheetTitle],type,originSheetTitle,value,name,[originSheetTitle+type]',
 });
 
 export const cleanUpEntriesForSheetTitle = sheetTitleForCurrentMonth => {

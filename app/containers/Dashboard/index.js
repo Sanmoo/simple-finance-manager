@@ -7,6 +7,7 @@ import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import { makeSelectSId } from 'containers/App/selectors';
 import { saveKey as saveGlobalKey } from 'containers/App/actions';
+import { TYPE_EXPENSE, TYPE_INCOME } from 'utils/businessConstants';
 
 import Dashboard from './Dashboard';
 import { saveKey } from './actions';
@@ -27,8 +28,8 @@ const mapStateToProps = createStructuredSelector({
 export function mapDispatchToProps(dispatch) {
   return {
     saveKey: (key, val) => dispatch(saveKey(key, val)),
-    onAddIncome: () => alert('To be implemented...'),
-    onAddExpense: () => dispatch(push('/entry')),
+    onAddIncome: () => dispatch(push(`/entry?mode=${TYPE_INCOME}`)),
+    onAddExpense: () => dispatch(push(`/entry?mode=${TYPE_EXPENSE}`)),
     onSpreadsheetIdProvided: sId =>
       dispatch(saveGlobalKey('spreadsheetId', sId)),
   };

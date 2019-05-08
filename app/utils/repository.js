@@ -2,7 +2,7 @@ import Dexie from 'dexie';
 import {
   DATABASE_NAME,
   TYPE_EXPENSE,
-  TYPE_RECEIPT,
+  TYPE_INCOME,
 } from 'utils/businessConstants';
 import { sumBy } from 'lodash';
 
@@ -52,10 +52,10 @@ export async function getTotalExpensesFromSheet(sheetTitle) {
   });
 }
 
-export async function getTotalReceiptFromSheet(sheetTitle) {
+export async function getTotalIncomeFromSheet(sheetTitle) {
   return getAggregateSum('entries', {
     originSheetTitle: sheetTitle,
-    type: TYPE_RECEIPT,
+    type: TYPE_INCOME,
   });
 }
 

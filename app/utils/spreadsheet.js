@@ -1,11 +1,11 @@
 import { getSpreadsheetRanges, initGApi } from 'utils/googleApis';
-import { TYPE_EXPENSE, TYPE_RECEIPT } from 'utils/businessConstants';
+import { TYPE_EXPENSE, TYPE_INCOME } from 'utils/businessConstants';
 import format from 'date-fns/format';
 
 const EXPENSE_ENTRIES_RANGE = 'A2:E';
-const RECEIPT_ENTRIES_RANGE = 'M2:P';
+const INCOME_ENTRIES_RANGE = 'M2:P';
 const EXPENSE_CATEGORIES_RANGE = 'G2:H';
-const RECEIPT_CATEGORIES_RANGE = 'R2:S';
+const INCOME_CATEGORIES_RANGE = 'R2:S';
 const SPREADSHEET_DATE_FORMAT = 'dd/MM/yyyy';
 
 // Example: 'Mai-2019'!A9:E9
@@ -24,14 +24,14 @@ const createExpenseEntryFromSsRow = (
   type: TYPE_EXPENSE,
 });
 
-const createReceiptEntryFromSsRow = ([date, desc, category, value], index) => ({
+const createIncomeEntryFromSsRow = ([date, desc, category, value], index) => ({
   line: index + 2,
   date,
   desc,
   category,
   value,
   isCredit: false,
-  type: TYPE_RECEIPT,
+  type: TYPE_INCOME,
 });
 
 const createCategoryGoalFromSsRow = type => ([name, value], index) => ({
@@ -44,7 +44,7 @@ const createCategoryGoalFromSsRow = type => ([name, value], index) => ({
 /**
  * Executes a bashGet against the given spreadsheetId and sheetTitle
  * And returns all interesting data from it: entries and category goals,
- * receipt and expense types
+ * income and expense types
  */
 export async function collectSpreadsheetData(spreadsheetId, sheetTitle) {
   await initGApi();
@@ -53,22 +53,22 @@ export async function collectSpreadsheetData(spreadsheetId, sheetTitle) {
     spreadsheetId,
     ranges: [
       `${sheetTitle}!${EXPENSE_ENTRIES_RANGE}`,
-      `${sheetTitle}!${RECEIPT_ENTRIES_RANGE}`,
+      `${sheetTitle}!${INCOME_ENTRIES_RANGE}`,
       `${sheetTitle}!${EXPENSE_CATEGORIES_RANGE}`,
-      `${sheetTitle}!${RECEIPT_CATEGORIES_RANGE}`,
+      `${sheetTitle}!${INCOME_CATEGORIES_RANGE}`,
     ],
   });
 
   const [
     expenseEntries,
-    receiptEntries,
+    incomeEntries,
     categoriesExpense,
-    categoriesReceipt,
+    categoriesIncome,
   ] = valueRanges.map(vR => vR.values);
 
   const entries = expenseEntries
     .map(createExpenseEntryFromSsRow)
-    .concat(receiptEntries.map(createReceiptEntryFromSsRow));
+    .concat(incomeEntries.map(createIncomeEntryFromSsRow));
 
   entries.forEach(e => {
     e.originSheetTitle = sheetTitle;
@@ -76,7 +76,7 @@ export async function collectSpreadsheetData(spreadsheetId, sheetTitle) {
 
   const categoryGoals = categoriesExpense
     .map(createCategoryGoalFromSsRow(TYPE_EXPENSE))
-    .concat(categoriesReceipt.map(createCategoryGoalFromSsRow(TYPE_RECEIPT)));
+    .concat(categoriesIncome.map(createCategoryGoalFromSsRow(TYPE_INCOME)));
 
   categoryGoals.forEach(c => {
     c.originSheetTitle = sheetTitle; // eslint-disable-line no-param-reassign
@@ -99,8 +99,7 @@ export async function addNewEntry(values) {
   } = values;
   const requestParams = {
     spreadsheetId,
-    range:
-      type === TYPE_EXPENSE ? EXPENSE_ENTRIES_RANGE : RECEIPT_ENTRIES_RANGE,
+    range: type === TYPE_EXPENSE ? EXPENSE_ENTRIES_RANGE : INCOME_ENTRIES_RANGE,
     insertDataOption: 'OVERWRITE',
     valueInputOption: 'RAW',
   };

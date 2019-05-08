@@ -15,7 +15,7 @@ import {
   collectSpreadsheetData,
   addNewEntry as addNewEntryRemote,
 } from 'utils/spreadsheet';
-import { TYPE_EXPENSE, TYPE_RECEIPT } from 'utils/businessConstants';
+import { TYPE_EXPENSE, TYPE_INCOME } from 'utils/businessConstants';
 
 export const getSheetTitleForCurrentMonth = () =>
   capitalize(
@@ -72,10 +72,10 @@ export function loadExpenseCategoriesFromCurrentMonthCategoryGoals() {
   });
 }
 
-export function loadReceiptCategoriesFromCurrentMonthCategoryGoals() {
+export function loadIncomeCategoriesFromCurrentMonthCategoryGoals() {
   const sheetTitle = getSheetTitleForCurrentMonth();
   return loadCategoryNames({
-    type: TYPE_RECEIPT,
+    type: TYPE_INCOME,
     originSheetTitle: sheetTitle,
   });
 }

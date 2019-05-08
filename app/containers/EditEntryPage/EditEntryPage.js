@@ -218,7 +218,7 @@ EditEntryPage.propTypes = {
   categories: PropTypes.arrayOf(PropTypes.string).isRequired,
   onCategoriesLoaded: PropTypes.func.isRequired,
   spreadsheetId: PropTypes.string.isRequired,
-  submitInProgress: PropTypes.func.isRequired,
+  submitInProgress: PropTypes.bool.isRequired,
 };
 
 export default withStyles(styles)(injectIntl(EditEntryPage));

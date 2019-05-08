@@ -13,7 +13,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import ConfirmationDialog from 'components/ConfirmationDialog/Loadable';
 import Typography from './Typography';
 
-export const SfmNavBar = ({ onSignOff }) => {
+export const SfmNavBar = ({ onSignOff, title }) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const [signOffDialogOpened, setSignOffDialogOpened] = useState(false);
@@ -32,12 +32,16 @@ export const SfmNavBar = ({ onSignOff }) => {
 
   const userMenuOpened = Boolean(anchorEl);
 
+  if (!title) {
+    return <div />;
+  }
+
   return (
     <React.Fragment>
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" color="inherit">
-            Dashboard
+            {title}
           </Typography>
           <div>
             <IconButton
@@ -86,6 +90,7 @@ export const SfmNavBar = ({ onSignOff }) => {
 
 SfmNavBar.propTypes = {
   onSignOff: PropTypes.func.isRequired,
+  title: PropTypes.string,
 };
 
 export default SfmNavBar;

@@ -3,6 +3,7 @@
  */
 
 import { createSelector } from 'reselect';
+import { DASHBOARD_PAGE, EDIT_ENTRY_PAGE, LIST_ENTRY_PAGE } from 'utils/businessConstants';
 
 const selectGlobal = state => state.global;
 
@@ -38,6 +39,26 @@ const makeSelectLocation = () =>
     routerState => routerState.location,
   );
 
+const makeSelectCurrentPage = () =>
+  createSelector(
+    makeSelectLocation(),
+    ({ pathname }) => {
+      if (pathname.endsWith('/')) {
+        return DASHBOARD_PAGE;
+      }
+
+      if (pathname.endsWith('entry')) {
+        return EDIT_ENTRY_PAGE;
+      }
+
+      if (pathname.endsWith('entries')) {
+        return LIST_ENTRY_PAGE;
+      }
+
+      return null;
+    },
+  );
+
 const makeSelectAuthToken = () =>
   createSelector(
     selectGlobal,
@@ -59,4 +80,5 @@ export {
   makeSelectLocation,
   makeSelectAuthToken,
   makeSelectSId,
+  makeSelectCurrentPage,
 };

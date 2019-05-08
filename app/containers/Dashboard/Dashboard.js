@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import SpreadsheetIdInputCard from 'components/SpreadsheetIdInputCard';
 import { syncLocalCache, getDashboardInfo } from 'utils/business';
-import SfmNavBar from 'containers/SfmNavBar';
 import { withStyles } from '@material-ui/core/styles';
 import SpeedDial from '@material-ui/lab/SpeedDial';
 import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon';
@@ -64,7 +63,6 @@ function Dashboard({
 
   return (
     <DashboardContainer>
-      <SfmNavBar />
       <DashboardContent dashInfo={dashInfo} />
       <div className={classes.speedDialWrapper}>
         {addEntryButtonEnabled && (

@@ -11,8 +11,10 @@ import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import SfmNavBar from 'containers/SfmNavBar';
 import Dashboard from 'containers/Dashboard/Loadable';
 import EditEntryPage from 'containers/EditEntryPage/Loadable';
+import ListEntriesPage from 'containers/ListEntriesPage/Loadable';
 import SnackbarContainer from 'containers/SnackbarContainer';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import Login from 'components/Login';
@@ -40,9 +42,11 @@ export default function App({ authToken, saveKey }) {
             content="A simple app for helping you manage your finances"
           />
         </Helmet>
+        <SfmNavBar />
         <Switch>
           <Route exact path="/" component={Dashboard} />
           <Route exact path="/entry" component={EditEntryPage} />
+          <Route exact path="/entries" component={ListEntriesPage} />
           <Route path="" component={NotFoundPage} />
         </Switch>
         <GlobalStyle />

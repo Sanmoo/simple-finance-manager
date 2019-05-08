@@ -1,19 +1,26 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import SpreadsheetIdInputCard from 'components/SpreadsheetIdInputCard';
 import { syncLocalCache, getDashboardInfo } from 'utils/business';
 import SfmNavBar from 'containers/SfmNavBar';
 import { withStyles } from '@material-ui/core/styles';
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
+import SpeedDial from '@material-ui/lab/SpeedDial';
+import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon';
+import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
+import ReceiptIcon from '@material-ui/icons/Receipt';
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+
 import DashboardContent from './DashboardContent';
 
 const styles = theme => ({
-  fab: {
+  speedDialWrapper: {
+    position: 'relative',
+  },
+  speedDial: {
     position: 'fixed',
     bottom: theme.spacing.unit * 2,
-    right: theme.spacing.unit * 2,
+    right: theme.spacing.unit * 3,
   },
 });
 
@@ -22,12 +29,18 @@ const DashboardContainer = styled.div`
   position: relative;
 `;
 
+const actions = [
+  { icon: <AttachMoneyIcon />, name: 'Add Income' },
+  { icon: <ReceiptIcon />, name: 'Add Expense' },
+];
+
 function Dashboard({
   sId,
   saveKey,
   dashInfo,
   classes,
-  onAddClick,
+  onAddExpense,
+  onAddIncome,
   onSpreadsheetIdProvided,
   addEntryButtonEnabled,
 }) {
@@ -39,24 +52,50 @@ function Dashboard({
     }
   }, [sId, saveKey]);
 
+  const [open, setOpen] = useState(false);
+
   if (!sId) {
     return <SpreadsheetIdInputCard onSubmitSId={onSpreadsheetIdProvided} />;
   }
+
+  const onClose = () => setOpen(false);
+  const onOpen = () => setOpen(true);
+  const onClick = () => setOpen(!open);
 
   return (
     <DashboardContainer>
       <SfmNavBar />
       <DashboardContent dashInfo={dashInfo} />
-      {addEntryButtonEnabled && (
-        <Fab
-          color="primary"
-          aria-label="Add"
-          className={classes.fab}
-          onClick={onAddClick}
-        >
-          <AddIcon />
-        </Fab>
-      )}
+      <div className={classes.speedDialWrapper}>
+        {addEntryButtonEnabled && (
+          <SpeedDial
+            ariaLabel="Action menu"
+            className={classes.speedDial}
+            hidden={false}
+            icon={<SpeedDialIcon />}
+            onBlur={onClose}
+            onClick={onClick}
+            onClose={onClose}
+            onFocus={onOpen}
+            onMouseEnter={onOpen}
+            onMouseLeave={onClose}
+            open={open}
+            direction="up"
+          >
+            {actions.map(action => (
+              <SpeedDialAction
+                key={action.name}
+                icon={action.icon}
+                tooltipTitle={action.name}
+                tooltipOpen
+                onClick={() =>
+                  action.name === 'Add Income' ? onAddIncome() : onAddExpense()
+                }
+              />
+            ))}
+          </SpeedDial>
+        )}
+      </div>
     </DashboardContainer>
   );
 }
@@ -67,7 +106,8 @@ Dashboard.propTypes = {
   onSpreadsheetIdProvided: PropTypes.func.isRequired,
   dashInfo: PropTypes.any,
   classes: PropTypes.object.isRequired,
-  onAddClick: PropTypes.func.isRequired,
+  onAddIncome: PropTypes.func.isRequired,
+  onAddExpense: PropTypes.func.isRequired,
   addEntryButtonEnabled: PropTypes.bool.isRequired,
 };
 

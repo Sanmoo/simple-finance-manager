@@ -27,7 +27,8 @@ const mapStateToProps = createStructuredSelector({
 export function mapDispatchToProps(dispatch) {
   return {
     saveKey: (key, val) => dispatch(saveKey(key, val)),
-    onAddClick: () => dispatch(push('/entry')),
+    onAddIncome: () => alert('To be implemented...'),
+    onAddExpense: () => dispatch(push('/entry')),
     onSpreadsheetIdProvided: sId =>
       dispatch(saveGlobalKey('spreadsheetId', sId)),
   };

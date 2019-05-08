@@ -67,7 +67,6 @@ export function EditEntryPage({
   spreadsheetId,
   submitInProgress,
 }) {
-  const submitDisabled = !date || !description || !category || value === 0 || submitInProgress;
   const updateFormNumber = useCallback(
     evt => {
       const numberAsStr = evt.target.value;
@@ -84,6 +83,9 @@ export function EditEntryPage({
       onCategoriesLoaded,
     );
   }, []);
+
+  const submitDisabled =
+    !date || !description || !category || value === 0 || submitInProgress;
 
   return (
     <div>
@@ -201,7 +203,8 @@ export function EditEntryPage({
 }
 
 EditEntryPage.propTypes = {
-  classes: PropTypes.object.isRequired, intl: intlShape.isRequired,
+  classes: PropTypes.object.isRequired,
+  intl: intlShape.isRequired,
   formValues: PropTypes.shape({
     date: PropTypes.instanceOf(Date).isRequired,
     description: PropTypes.string.isRequired,
@@ -215,6 +218,7 @@ EditEntryPage.propTypes = {
   categories: PropTypes.arrayOf(PropTypes.string).isRequired,
   onCategoriesLoaded: PropTypes.func.isRequired,
   spreadsheetId: PropTypes.string.isRequired,
+  submitInProgress: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(injectIntl(EditEntryPage));

@@ -10,8 +10,8 @@ import { sumBy } from 'lodash';
 const db = new Dexie(DATABASE_NAME);
 db.version(1).stores({
   entries:
-    '++id,line,date,desc,credit,category,value,originSheetTitle,type,[originSheetTitle+type]',
-  categoryGoal: '++id,name,type,value,originSheetTitle,[originSheetTitle+type]',
+    'line,date,desc,credit,category,value,originSheetTitle,type,[originSheetTitle+type]',
+  categoryGoal: 'line,name,type,value,originSheetTitle,[originSheetTitle+type]',
 });
 
 export const cleanUpEntriesForSheetTitle = sheetTitleForCurrentMonth => {
@@ -75,6 +75,7 @@ export async function loadCategoryNames(query) {
 
 export async function addNewEntry(values) {
   const {
+    line,
     type,
     date,
     description,
@@ -85,6 +86,7 @@ export async function addNewEntry(values) {
   } = values;
 
   const cacheObj = {
+    line,
     type,
     desc: description,
     date,

@@ -12,8 +12,7 @@ import {
   addNewEntry as addNewEntryCache,
 } from 'utils/repository';
 import {
-  collectEntriesFromSpreadsheet,
-  collectCategoryGoalsFromSpreadsheet,
+  collectSpreadsheetData,
   addNewEntry as addNewEntryRemote,
 } from 'utils/spreadsheet';
 import { TYPE_EXPENSE, TYPE_RECEIPT } from 'utils/businessConstants';
@@ -33,11 +32,10 @@ export async function syncLocalCache(sId) {
     cleanUpCategoryGoalsForSheetTitle(sheetTitle),
   ]);
 
-  const [entries, categoryGoals] = await Promise.all([
-    collectEntriesFromSpreadsheet(sId, sheetTitle),
-    collectCategoryGoalsFromSpreadsheet(sId, sheetTitle),
-  ]);
-
+  const { entries, categoryGoals } = await collectSpreadsheetData(
+    sId,
+    sheetTitle,
+  );
   await Promise.all([addEntries(entries), addCategoryGoals(categoryGoals)]);
 }
 
@@ -84,6 +82,6 @@ export function loadReceiptCategoriesFromCurrentMonthCategoryGoals() {
 
 export async function addNewEntry(formValues) {
   const sheetTitle = getSheetTitleForCurrentMonth();
-  await addNewEntryRemote(formValues);
-  await addNewEntryCache({ ...formValues, originSheetTitle: sheetTitle });
+  const line = await addNewEntryRemote(formValues);
+  await addNewEntryCache({ ...formValues, originSheetTitle: sheetTitle, line });
 }

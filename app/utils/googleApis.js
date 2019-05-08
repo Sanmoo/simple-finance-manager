@@ -59,3 +59,12 @@ export async function getSpreadsheetRange({ spreadsheetId, range }) {
 
   return result;
 }
+
+export async function getSpreadsheetRanges({ spreadsheetId, ranges }) {
+  const { result } = await gapi.client.sheets.spreadsheets.values.batchGet({
+    spreadsheetId,
+    ranges,
+  });
+
+  return result;
+}

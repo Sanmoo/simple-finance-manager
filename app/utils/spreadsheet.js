@@ -1,97 +1,88 @@
-import { flatten } from 'lodash';
-import { getSpreadsheetRange, initGApi } from 'utils/googleApis';
+import { getSpreadsheetRanges, initGApi } from 'utils/googleApis';
 import { TYPE_EXPENSE, TYPE_RECEIPT } from 'utils/businessConstants';
 import format from 'date-fns/format';
 
 const EXPENSE_ENTRIES_RANGE = 'A2:E';
 const RECEIPT_ENTRIES_RANGE = 'M2:P';
+const EXPENSE_CATEGORIES_RANGE = 'G2:H';
+const RECEIPT_CATEGORIES_RANGE = 'R2:S';
 const SPREADSHEET_DATE_FORMAT = 'dd/MM/yyyy';
 
-export async function collectCategoryGoalsFromSpreadsheet(
-  spreadsheetId,
-  sheetTitle,
-) {
+// Example: 'Mai-2019'!A9:E9
+const UPDATED_RANGE_REGEX = /'[^']*'![^\d]+(\d+):[^\d]+(\d+)/i;
+
+const createExpenseEntryFromSsRow = (
+  [date, desc, isCredit, category, value],
+  index,
+) => ({
+  line: index + 2,
+  date,
+  desc,
+  isCredit,
+  category,
+  value,
+  type: TYPE_EXPENSE,
+});
+
+const createReceiptEntryFromSsRow = ([date, desc, category, value], index) => ({
+  line: index + 2,
+  date,
+  desc,
+  category,
+  value,
+  isCredit: false,
+  type: TYPE_RECEIPT,
+});
+
+const createCategoryGoalFromSsRow = type => ([name, value], index) => ({
+  line: index + 2,
+  name,
+  value,
+  type,
+});
+
+/**
+ * Executes a bashGet against the given spreadsheetId and sheetTitle
+ * And returns all interesting data from it: entries and category goals,
+ * receipt and expense types
+ */
+export async function collectSpreadsheetData(spreadsheetId, sheetTitle) {
   await initGApi();
 
-  return flatten(
-    await Promise.all([
-      collectExpenseCGoalsFromSheet(spreadsheetId, sheetTitle),
-      collectReceiptCGoalsFromSheet(spreadsheetId, sheetTitle),
-    ]),
-  );
-}
-
-export async function collectEntriesFromSpreadsheet(spreadsheetId, sheetTitle) {
-  await initGApi();
-
-  return flatten(
-    await Promise.all([
-      collectExpensesFromSpreadsheet(spreadsheetId, sheetTitle),
-      collectReceiptsFromSpreadsheet(spreadsheetId, sheetTitle),
-    ]),
-  );
-}
-
-export async function collectExpenseCGoalsFromSheet(spreadsheetId, sheetTitle) {
-  return (await getSpreadsheetRange({
+  const { valueRanges } = await getSpreadsheetRanges({
     spreadsheetId,
-    range: `${sheetTitle}!G2:H`,
-  })).values.map(([name, value]) => ({
-    name,
-    value,
-    type: TYPE_EXPENSE,
-    originSheetTitle: sheetTitle,
-  }));
-}
+    ranges: [
+      `${sheetTitle}!${EXPENSE_ENTRIES_RANGE}`,
+      `${sheetTitle}!${RECEIPT_ENTRIES_RANGE}`,
+      `${sheetTitle}!${EXPENSE_CATEGORIES_RANGE}`,
+      `${sheetTitle}!${RECEIPT_CATEGORIES_RANGE}`,
+    ],
+  });
 
-export async function collectExpensesFromSpreadsheet(
-  spreadsheetId,
-  sheetTitle,
-) {
-  return (await getSpreadsheetRange({
-    spreadsheetId,
-    range: `${sheetTitle}!${EXPENSE_ENTRIES_RANGE}`,
-  })).values.map(([date, desc, isCredit, category, value], index) => ({
-    line: index,
-    date,
-    desc,
-    isCredit,
-    category,
-    value,
-    originSheetTitle: sheetTitle,
-    type: TYPE_EXPENSE,
-  }));
-}
+  const [
+    expenseEntries,
+    receiptEntries,
+    categoriesExpense,
+    categoriesReceipt,
+  ] = valueRanges.map(vR => vR.values);
 
-export async function collectReceiptCGoalsFromSheet(spreadsheetId, sheetTitle) {
-  return (await getSpreadsheetRange({
-    spreadsheetId,
-    range: `${sheetTitle}!R2:S`,
-  })).values.map(([name, value]) => ({
-    name,
-    value,
-    type: TYPE_RECEIPT,
-    originSheetTitle: sheetTitle,
-  }));
-}
+  const entries = expenseEntries
+    .map(createExpenseEntryFromSsRow)
+    .concat(receiptEntries.map(createReceiptEntryFromSsRow));
 
-export async function collectReceiptsFromSpreadsheet(
-  spreadsheetId,
-  sheetTitle,
-) {
-  return (await getSpreadsheetRange({
-    spreadsheetId,
-    range: `${sheetTitle}!${RECEIPT_ENTRIES_RANGE}`,
-  })).values.map(([date, desc, category, value], index) => ({
-    line: index,
-    date,
-    desc,
-    category,
-    value,
-    isCredit: false,
-    originSheetTitle: sheetTitle,
-    type: TYPE_RECEIPT,
-  }));
+  entries.forEach(e => {
+    e.originSheetTitle = sheetTitle;
+  });
+
+  const categoryGoals = categoriesExpense
+    .map(createCategoryGoalFromSsRow(TYPE_EXPENSE))
+    .concat(categoriesReceipt.map(createCategoryGoalFromSsRow(TYPE_RECEIPT)));
+
+  categoryGoals.forEach(c => {
+    c.originSheetTitle = sheetTitle; // eslint-disable-line no-param-reassign
+  });
+
+  return { entries, categoryGoals };
 }
 
 export async function addNewEntry(values) {
@@ -126,8 +117,22 @@ export async function addNewEntry(values) {
     ],
   };
 
-  await gapi.client.sheets.spreadsheets.values.append(
+  const {
+    result: { updates },
+  } = await gapi.client.sheets.spreadsheets.values.append(
     requestParams,
     requestBody,
   );
+
+  const [, lineStartStr, lineEndStr] = UPDATED_RANGE_REGEX.exec(
+    updates.updatedRange,
+  );
+  const lineStart = parseInt(lineStartStr, 10);
+  const lineEnd = parseInt(lineEndStr, 10);
+
+  if (lineStart !== lineEnd) {
+    throw new Error('Assert false');
+  }
+
+  return lineStart;
 }

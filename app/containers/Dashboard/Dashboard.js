@@ -11,15 +11,15 @@ import DashboardContent from './DashboardContent';
 
 const styles = theme => ({
   fab: {
-    margin: theme.spacing.unit,
     position: 'fixed',
-    top: `calc(100vh - 56px - ${theme.spacing.unit * 2}px)`,
-    left: `calc(100vw - 56px - ${theme.spacing.unit * 2}px)`,
+    bottom: theme.spacing.unit * 2,
+    right: theme.spacing.unit * 2,
   },
 });
 
 const DashboardContainer = styled.div`
   padding-bottom: 56px;
+  position: relative;
 `;
 
 function Dashboard({

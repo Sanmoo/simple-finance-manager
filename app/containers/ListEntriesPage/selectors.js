@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 import { initialState } from './reducer';
+import { orderByDateDesc } from './utils';
 
 /**
  * Direct selector to the listEntriesPage state domain
@@ -22,5 +23,11 @@ const makeSelectListEntriesPage = () =>
     substate => substate,
   );
 
+const makeSelectEntries = () =>
+  createSelector(
+    makeSelectListEntriesPage(),
+    substate => orderByDateDesc(substate.entries),
+  );
+
 export default makeSelectListEntriesPage;
-export { selectListEntriesPageDomain };
+export { selectListEntriesPageDomain, makeSelectEntries };

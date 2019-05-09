@@ -39,6 +39,13 @@ export async function getExpensesFromSheet(sheetTitle) {
   });
 }
 
+export async function getEntries({ type, sheetTitle }) {
+  return get('entries', {
+    originSheetTitle: sheetTitle,
+    type,
+  });
+}
+
 export async function getCategoryGoalsFromSheet(sheetTitle) {
   return get('categoryGoal', {
     originSheetTitle: sheetTitle,

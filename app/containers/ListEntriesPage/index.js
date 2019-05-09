@@ -9,18 +9,19 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectListEntriesPage from './selectors';
+import { makeSelectEntries } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import ListEntriesPage from './ListEntriesPage';
+import { saveKey } from './actions';
 
 const mapStateToProps = createStructuredSelector({
-  listEntriesPage: makeSelectListEntriesPage(),
+  entries: makeSelectEntries(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    onEntriesLoaded: entries => dispatch(saveKey('entries', entries)),
   };
 }
 

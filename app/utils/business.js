@@ -10,6 +10,7 @@ import {
   getCategoryGoalsFromSheet,
   loadCategoryNames,
   addNewEntry as addNewEntryCache,
+  getEntries,
 } from 'utils/repository';
 import {
   collectSpreadsheetData,
@@ -23,6 +24,9 @@ export const getSheetTitleForCurrentMonth = () =>
       locale: pt,
     }),
   );
+
+export const generateUniqueKeyForEntry = entry =>
+  `${entry.line}-${entry.originSheetTitle}-${entry.type}`;
 
 export async function syncLocalCache(sId) {
   const sheetTitle = getSheetTitleForCurrentMonth();
@@ -42,6 +46,15 @@ export async function syncLocalCache(sId) {
 
 function getPercentage(total, partial) {
   return parseFloat((total !== 0 ? partial / total : partial).toFixed(2));
+}
+
+export async function getAllEntriesForCurrentMonth(type) {
+  const sheetTitle = getSheetTitleForCurrentMonth();
+  const records = await getEntries({ type, sheetTitle });
+  records.forEach(r => {
+    r.value = parseFloat(r.value || 0); // eslint-disable-line
+  });
+  return records;
 }
 
 export async function getDashboardInfo() {

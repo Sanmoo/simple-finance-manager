@@ -19,13 +19,13 @@ import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
 import format from 'date-fns/format';
 import parse from 'date-fns/parse';
+import { modeFromLocation } from 'utils/routes';
 import {
   loadExpenseCategoriesFromCurrentMonthCategoryGoals,
   loadIncomeCategoriesFromCurrentMonthCategoryGoals,
 } from 'utils/business';
-import { TYPE_EXPENSE } from 'utils/businessConstants';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import queryString from 'query-string';
+import { TYPE_EXPENSE } from 'utils/businessConstants';
 import messages from './messages';
 
 const styles = theme => ({
@@ -57,15 +57,6 @@ const styles = theme => ({
     margin: theme.spacing.unit,
   },
 });
-
-const modeFromLocation = location => {
-  if (location && location.search) {
-    const { mode } = queryString.parse(location.search);
-    return mode;
-  }
-
-  return TYPE_EXPENSE;
-};
 
 export function EditEntryPage({
   classes,

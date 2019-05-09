@@ -23,11 +23,24 @@ const makeSelectListEntriesPage = () =>
     substate => substate,
   );
 
-const makeSelectEntries = () =>
+const makeSelectFilterOptions = () =>
   createSelector(
     makeSelectListEntriesPage(),
-    substate => orderByDateDesc(substate.entries),
+    substate => substate.filterOptions,
+  );
+
+const makeSelectShownType = () =>
+  createSelector(
+    makeSelectFilterOptions(),
+    substate => substate.shownType,
+  );
+
+const makeSelectEntries = () =>
+  createSelector(
+    [makeSelectListEntriesPage(), makeSelectShownType()],
+    (substate, shownType) =>
+      orderByDateDesc(substate.entries.filter(e => e.type === shownType)),
   );
 
 export default makeSelectListEntriesPage;
-export { selectListEntriesPageDomain, makeSelectEntries };
+export { selectListEntriesPageDomain, makeSelectEntries, makeSelectShownType };

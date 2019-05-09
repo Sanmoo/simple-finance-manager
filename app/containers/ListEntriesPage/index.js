@@ -9,7 +9,8 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { makeSelectEntries } from './selectors';
+import { TYPE_EXPENSE, TYPE_INCOME } from 'utils/businessConstants';
+import { makeSelectEntries, makeSelectShownType } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import ListEntriesPage from './ListEntriesPage';
@@ -17,11 +18,16 @@ import { saveKey } from './actions';
 
 const mapStateToProps = createStructuredSelector({
   entries: makeSelectEntries(),
+  shownType: makeSelectShownType(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     onEntriesLoaded: entries => dispatch(saveKey('entries', entries)),
+    onViewExpensesClick: () =>
+      dispatch(saveKey('filterOptions', { shownType: TYPE_EXPENSE })),
+    onViewIncomesClick: () =>
+      dispatch(saveKey('filterOptions', { shownType: TYPE_INCOME })),
   };
 }
 

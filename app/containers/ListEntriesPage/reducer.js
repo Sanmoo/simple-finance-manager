@@ -4,10 +4,14 @@
  *
  */
 import produce from 'immer';
+import { TYPE_EXPENSE } from 'utils/businessConstants';
 import { DEFAULT_ACTION, SAVE_KEY } from './constants';
 
 export const initialState = {
   entries: [],
+  filterOptions: {
+    shownType: TYPE_EXPENSE,
+  },
 };
 
 /* eslint-disable default-case, no-param-reassign */

@@ -48,9 +48,9 @@ function getPercentage(total, partial) {
   return parseFloat((total !== 0 ? partial / total : partial).toFixed(2));
 }
 
-export async function getAllEntriesForCurrentMonth(type) {
+export async function getAllEntriesForCurrentMonth() {
   const sheetTitle = getSheetTitleForCurrentMonth();
-  const records = await getEntries({ type, sheetTitle });
+  const records = await getEntries({ sheetTitle });
   records.forEach(r => {
     r.value = parseFloat(r.value || 0); // eslint-disable-line
   });

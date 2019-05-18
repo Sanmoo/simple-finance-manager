@@ -23,6 +23,7 @@ export const initialState = {
   },
   categories: [],
   submitInProgress: false,
+  editingEntriesKey: null,
 };
 
 /* eslint-disable default-case, no-param-reassign, consistent-return */

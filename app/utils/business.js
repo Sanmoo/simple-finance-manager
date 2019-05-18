@@ -9,12 +9,13 @@ import {
   getExpensesFromSheet,
   getCategoryGoalsFromSheet,
   loadCategoryNames,
-  addNewEntry as addNewEntryCache,
+  putEntry as putEntryCache,
   getEntries,
 } from 'utils/repository';
 import {
   collectSpreadsheetData,
   addNewEntry as addNewEntryRemote,
+  editEntry as editEntryRemote,
 } from 'utils/spreadsheet';
 import { TYPE_EXPENSE, TYPE_INCOME } from 'utils/businessConstants';
 
@@ -96,6 +97,11 @@ export function loadIncomeCategoriesFromCurrentMonthCategoryGoals() {
 
 export async function addNewEntry(formValues) {
   const sheetTitle = getSheetTitleForCurrentMonth();
-  const line = await addNewEntryRemote(formValues);
-  await addNewEntryCache({ ...formValues, originSheetTitle: sheetTitle, line });
+  if (formValues && formValues.line) {
+    await editEntryRemote(formValues);
+    await putEntryCache(formValues);
+  } else {
+    const line = await addNewEntryRemote(formValues);
+    await putEntryCache({ ...formValues, originSheetTitle: sheetTitle, line });
+  }
 }

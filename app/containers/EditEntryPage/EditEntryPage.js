@@ -15,6 +15,7 @@ import { withStyles } from '@material-ui/core/styles';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import TextField from '@material-ui/core/TextField';
 import Checkbox from '@material-ui/core/Checkbox';
+import queryString from 'query-string';
 import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
 import format from 'date-fns/format';
@@ -62,6 +63,7 @@ export function EditEntryPage({
   classes,
   intl: { formatMessage },
   formValues: { date, description, credit, category, value },
+  editingEntriesKey,
   formValues,
   updateFormValue,
   onCancelClick,
@@ -70,6 +72,7 @@ export function EditEntryPage({
   onCategoriesLoaded,
   spreadsheetId,
   submitInProgress,
+  onSetupEditForm,
   location,
 }) {
   const updateFormNumber = useCallback(
@@ -92,6 +95,13 @@ export function EditEntryPage({
       promise = loadIncomeCategoriesFromCurrentMonthCategoryGoals();
     }
     promise.then(onCategoriesLoaded);
+  }, [location]);
+
+  useEffect(() => {
+    const editingEntry = location ? queryString.parse(location.search) : null;
+    if (editingEntry && editingEntry.line) {
+      onSetupEditForm(editingEntry);
+    }
   }, [location]);
 
   const submitDisabled =
@@ -190,6 +200,7 @@ export function EditEntryPage({
           onClick={() =>
             onSubmit({
               ...formValues,
+              ...(editingEntriesKey || {}),
               type: mode,
               spreadsheetId,
             })
@@ -242,6 +253,12 @@ EditEntryPage.propTypes = {
   submitInProgress: PropTypes.bool.isRequired,
   location: PropTypes.shape({
     search: PropTypes.string.isRequired,
+  }),
+  onSetupEditForm: PropTypes.func.isRequired,
+  editingEntriesKey: PropTypes.shape({
+    line: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    originSheetTitle: PropTypes.string.isRequired,
   }),
 };
 

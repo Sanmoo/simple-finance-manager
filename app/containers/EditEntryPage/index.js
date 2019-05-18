@@ -10,11 +10,14 @@ import { compose } from 'redux';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import { makeSelectSId } from 'containers/App/selectors';
+import parse from 'date-fns/parse';
+import { SPREADSHEET_DATE_FORMATS } from 'utils/constants';
 
 import {
   makeSelectFormValues,
   makeSelectCategories,
   makeSelectSubmitInProgress,
+  makeSelectEditingEntriesKey,
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -26,6 +29,7 @@ const mapStateToProps = createStructuredSelector({
   categories: makeSelectCategories(),
   spreadsheetId: makeSelectSId(),
   submitInProgress: makeSelectSubmitInProgress(),
+  editingEntriesKey: makeSelectEditingEntriesKey(),
 });
 
 export function mapDispatchToProps(dispatch) {
@@ -35,6 +39,31 @@ export function mapDispatchToProps(dispatch) {
     onSubmit: formValues => dispatch(submitEntry(formValues)),
     onCategoriesLoaded: categories =>
       dispatch(saveKey('categories', categories)),
+    onSetupEditForm: entry => {
+      dispatch(
+        saveKey('formValues', {
+          date: parse(
+            entry.date,
+            SPREADSHEET_DATE_FORMATS['pt-BR'],
+            new Date(),
+          ),
+          description: entry.desc,
+          category: entry.category,
+          credit:
+            typeof entry.credit === 'boolean'
+              ? entry.credit
+              : entry.credit === 'true',
+          value: parseFloat(entry.value || 0),
+        }),
+      );
+      dispatch(
+        saveKey('editingEntriesKey', {
+          line: entry.line,
+          type: entry.type,
+          originSheetTitle: entry.originSheetTitle,
+        }),
+      );
+    },
   };
 }
 

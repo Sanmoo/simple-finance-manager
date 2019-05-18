@@ -3,7 +3,11 @@
  */
 
 import { createSelector } from 'reselect';
-import { DASHBOARD_PAGE, EDIT_ENTRY_PAGE, LIST_ENTRY_PAGE } from 'utils/businessConstants';
+import {
+  DASHBOARD_PAGE,
+  EDIT_ENTRY_PAGE,
+  LIST_ENTRY_PAGE,
+} from 'utils/businessConstants';
 
 const selectGlobal = state => state.global;
 

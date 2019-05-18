@@ -10,6 +10,8 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { TYPE_EXPENSE, TYPE_INCOME } from 'utils/businessConstants';
+import { push } from 'connected-react-router';
+import queryString from 'query-string';
 import { makeSelectEntries, makeSelectShownType } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -28,6 +30,15 @@ function mapDispatchToProps(dispatch) {
       dispatch(saveKey('filterOptions', { shownType: TYPE_EXPENSE })),
     onViewIncomesClick: () =>
       dispatch(saveKey('filterOptions', { shownType: TYPE_INCOME })),
+    onEditEntryClick: entry =>
+      dispatch(
+        push(
+          `/entry?${queryString.stringify({
+            ...entry,
+            credit: entry.credit === 'y',
+          })}`,
+        ),
+      ),
   };
 }
 

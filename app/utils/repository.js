@@ -5,6 +5,8 @@ import {
   TYPE_INCOME,
 } from 'utils/businessConstants';
 import { sumBy } from 'lodash';
+import format from 'date-fns/format';
+import { SPREADSHEET_DATE_FORMATS } from 'utils/constants';
 
 // Database and Collections Setup
 const db = new Dexie(DATABASE_NAME);
@@ -81,7 +83,7 @@ export async function loadCategoryNames(query) {
   return records.map(r => r.name);
 }
 
-export async function addNewEntry(values) {
+export async function putEntry(values) {
   const {
     line,
     type,
@@ -94,12 +96,12 @@ export async function addNewEntry(values) {
   } = values;
 
   const cacheObj = {
-    line,
+    line: parseInt(line, 10),
     type,
     desc: description,
-    date,
+    date: format(date, SPREADSHEET_DATE_FORMATS['pt-BR']),
     credit,
-    value,
+    value: `${value}`,
     category,
     originSheetTitle,
   };

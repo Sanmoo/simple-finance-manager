@@ -39,10 +39,17 @@ const makeSelectSubmitInProgress = () =>
     substate => substate.submitInProgress,
   );
 
+const makeSelectEditingEntriesKey = () =>
+  createSelector(
+    makeSelectEditEntryPage(),
+    substate => substate.editingEntriesKey,
+  );
+
 export default makeSelectEditEntryPage;
 export {
   selectEditEntryPageDomain,
   makeSelectFormValues,
   makeSelectCategories,
   makeSelectSubmitInProgress,
+  makeSelectEditingEntriesKey,
 };

@@ -12,13 +12,13 @@ const SPREADSHEET_DATE_FORMAT = 'dd/MM/yyyy';
 const UPDATED_RANGE_REGEX = /'[^']*'![^\d]+(\d+):[^\d]+(\d+)/i;
 
 const createExpenseEntryFromSsRow = (
-  [date, desc, isCredit, category, value],
+  [date, desc, credit, category, value],
   index,
 ) => ({
   line: index + 2,
   date,
   desc,
-  isCredit,
+  credit,
   category,
   value,
   type: TYPE_EXPENSE,
@@ -30,7 +30,7 @@ const createIncomeEntryFromSsRow = ([date, desc, category, value], index) => ({
   desc,
   category,
   value,
-  isCredit: false,
+  credit: false,
   type: TYPE_INCOME,
 });
 
@@ -97,12 +97,14 @@ export async function addNewEntry(values) {
     category,
     spreadsheetId,
   } = values;
+
   const requestParams = {
     spreadsheetId,
     range: type === TYPE_EXPENSE ? EXPENSE_ENTRIES_RANGE : INCOME_ENTRIES_RANGE,
     insertDataOption: 'OVERWRITE',
     valueInputOption: 'RAW',
   };
+
   const requestBody = {
     majorDimension: 'ROWS',
     values: [
@@ -134,4 +136,41 @@ export async function addNewEntry(values) {
   }
 
   return lineStart;
+}
+
+export async function editEntry(values) {
+  await initGApi();
+
+  const {
+    type,
+    date,
+    description,
+    credit,
+    value,
+    category,
+    spreadsheetId,
+    line,
+  } = values;
+  const requestParams = {
+    spreadsheetId,
+    range: type === TYPE_EXPENSE ? `A${line}:E${line}` : `M${line}:E${line}`,
+    valueInputOption: 'RAW',
+  };
+  const requestBody = {
+    majorDimension: 'ROWS',
+    values: [
+      [
+        format(date, SPREADSHEET_DATE_FORMAT),
+        description,
+        ...(type === TYPE_EXPENSE ? [credit ? 'y' : 'n'] : []),
+        category,
+        value,
+      ],
+    ],
+  };
+
+  await gapi.client.sheets.spreadsheets.values.update(
+    requestParams,
+    requestBody,
+  );
 }

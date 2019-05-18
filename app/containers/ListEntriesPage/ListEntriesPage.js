@@ -58,6 +58,7 @@ function ListEntriesPage({
   onViewIncomesClick,
   shownType,
   onEntriesLoaded,
+  onEditEntryClick,
 }) {
   useEffect(() => {
     getAllEntriesForCurrentMonth().then(onEntriesLoaded);
@@ -84,7 +85,10 @@ function ListEntriesPage({
             <Table className={classes.table}>
               <TableBody>
                 {entries.map(entry => (
-                  <TableRow key={generateUniqueKeyForEntry(entry)}>
+                  <TableRow
+                    key={generateUniqueKeyForEntry(entry)}
+                    onClick={() => onEditEntryClick(entry)}
+                  >
                     <TableCell className={classes.cell}>
                       {extractDateDay(entry.date)}
                     </TableCell>
@@ -130,6 +134,7 @@ ListEntriesPage.propTypes = {
   onViewExpensesClick: PropTypes.func,
   shownType: PropTypes.oneOf([TYPE_EXPENSE, TYPE_INCOME]),
   onViewIncomesClick: PropTypes.func,
+  onEditEntryClick: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(ListEntriesPage);

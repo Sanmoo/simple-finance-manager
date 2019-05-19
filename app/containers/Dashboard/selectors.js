@@ -15,4 +15,15 @@ const makeSelectAddEntryButtonEnabled = () =>
     dashInfo => dashInfo && dashInfo.length > 0,
   );
 
-export { selectDashboard, makeSelectDashInfo, makeSelectAddEntryButtonEnabled };
+const makeSelectIsLoading = () =>
+  createSelector(
+    selectDashboard,
+    dashState => dashState.isLoading,
+  );
+
+export {
+  selectDashboard,
+  makeSelectDashInfo,
+  makeSelectAddEntryButtonEnabled,
+  makeSelectIsLoading,
+};

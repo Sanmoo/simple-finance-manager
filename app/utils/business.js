@@ -16,6 +16,8 @@ import {
   collectSpreadsheetData,
   addNewEntry as addNewEntryRemote,
   editEntry as editEntryRemote,
+  createNewSpreadsheet,
+  createNewSheetFromTemplateWithTitle,
 } from 'utils/spreadsheet';
 import { TYPE_EXPENSE, TYPE_INCOME } from 'utils/businessConstants';
 
@@ -104,4 +106,23 @@ export async function addNewEntry(formValues) {
     const line = await addNewEntryRemote(formValues);
     await putEntryCache({ ...formValues, originSheetTitle: sheetTitle, line });
   }
+}
+
+export async function createNewSpreadsheetFromTemplate() {
+  const sheetTitle = getSheetTitleForCurrentMonth();
+
+  const { newSpreadsheetId, newSheetId } = await createNewSpreadsheet(
+    'Planilha de Gastos',
+  );
+
+  const sheetId = await createNewSheetFromTemplateWithTitle(
+    newSpreadsheetId,
+    newSheetId,
+    sheetTitle,
+  );
+
+  return {
+    spreadsheetId: newSpreadsheetId,
+    sheetId,
+  };
 }

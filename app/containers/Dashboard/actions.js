@@ -1,4 +1,4 @@
-import { SAVE_KEY } from './constants';
+import { SAVE_KEY, CREATE_NEW_SPREADSHEET } from './constants';
 
 export function saveKey(key, value) {
   return {
@@ -6,4 +6,8 @@ export function saveKey(key, value) {
     key,
     value,
   };
+}
+
+export function createNewSpreadsheet() {
+  return { type: CREATE_NEW_SPREADSHEET };
 }

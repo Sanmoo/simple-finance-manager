@@ -1,4 +1,6 @@
 const GAPI_INIT_TIMEOUT = 5000;
+const TEMPLATE_SPREADSHEET_ID = '1pxsoePTtDPMR2Af_Z8Ojeuj8yk4a-63nLV-j65BWp1g';
+const TEMPLATE_SHEET_ID = '736371080';
 
 /**
  * Makes sure Google APIs are initialized and ready to be used
@@ -67,4 +69,82 @@ export async function getSpreadsheetRanges({ spreadsheetId, ranges }) {
   });
 
   return result;
+}
+
+export async function createNewSpreadsheet(title) {
+  initGApi();
+
+  const spreadsheetBody = {
+    properties: { title },
+  };
+
+  const { result } = await gapi.client.sheets.spreadsheets.create(
+    {},
+    spreadsheetBody,
+  );
+  const {
+    spreadsheetId,
+    sheets: [
+      {
+        properties: { sheetId },
+      },
+    ],
+  } = result;
+  return {
+    newSpreadsheetId: spreadsheetId,
+    newSheetId: sheetId,
+  };
+}
+
+/**
+ *  Assuming a newly (blank) created spreadsheet, copy the template sheet into it,
+ *  rename it to the provided name and deletes the original sheet created with the
+ *  spreadsheet.
+ */
+export async function createNewSheetFromTemplateWithTitle(
+  spreadsheetId,
+  oldSheetId,
+  sheetTitle,
+) {
+  initGApi();
+
+  // Copy template sheet into provided spreadsheet
+  const response = await gapi.client.sheets.spreadsheets.sheets.copyTo(
+    {
+      spreadsheetId: TEMPLATE_SPREADSHEET_ID,
+      sheetId: TEMPLATE_SHEET_ID,
+    },
+    {
+      destinationSpreadsheetId: spreadsheetId,
+    },
+  );
+
+  const {
+    result: { sheetId },
+  } = response;
+
+  // Rename this recently created sheet to be sheet title and delete original one
+  await gapi.client.sheets.spreadsheets.batchUpdate(
+    { spreadsheetId },
+    {
+      requests: [
+        {
+          updateSheetProperties: {
+            properties: {
+              title: sheetTitle,
+              sheetId,
+            },
+            fields: 'title',
+          },
+        },
+        {
+          deleteSheet: {
+            sheetId: oldSheetId,
+          },
+        },
+      ],
+    },
+  );
+
+  return sheetId;
 }

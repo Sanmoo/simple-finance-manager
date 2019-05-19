@@ -10,10 +10,11 @@ import { saveKey as saveGlobalKey } from 'containers/App/actions';
 import { TYPE_EXPENSE, TYPE_INCOME } from 'utils/businessConstants';
 
 import Dashboard from './Dashboard';
-import { saveKey } from './actions';
+import { saveKey, createNewSpreadsheet } from './actions';
 import {
   makeSelectDashInfo,
   makeSelectAddEntryButtonEnabled,
+  makeSelectIsLoading,
 } from './selectors';
 
 import reducer from './reducer';
@@ -23,6 +24,7 @@ const mapStateToProps = createStructuredSelector({
   sId: makeSelectSId(),
   dashInfo: makeSelectDashInfo(),
   addEntryButtonEnabled: makeSelectAddEntryButtonEnabled(),
+  isLoading: makeSelectIsLoading(),
 });
 
 export function mapDispatchToProps(dispatch) {
@@ -32,6 +34,7 @@ export function mapDispatchToProps(dispatch) {
     onAddExpense: () => dispatch(push(`/entry?mode=${TYPE_EXPENSE}`)),
     onSpreadsheetIdProvided: sId =>
       dispatch(saveGlobalKey('spreadsheetId', sId)),
+    onCreateNewSpreadsheet: () => dispatch(createNewSpreadsheet()),
   };
 }
 

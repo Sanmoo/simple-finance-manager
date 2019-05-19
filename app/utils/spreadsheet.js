@@ -1,5 +1,11 @@
-import { getSpreadsheetRanges, initGApi } from 'utils/googleApis';
+import {
+  getSpreadsheetRanges,
+  initGApi,
+  createNewSpreadsheet,
+  createNewSheetFromTemplateWithTitle,
+} from 'utils/googleApis';
 import { TYPE_EXPENSE, TYPE_INCOME } from 'utils/businessConstants';
+
 import format from 'date-fns/format';
 
 const EXPENSE_ENTRIES_RANGE = 'A2:E';
@@ -60,8 +66,8 @@ export async function collectSpreadsheetData(spreadsheetId, sheetTitle) {
   });
 
   const [
-    expenseEntries,
-    incomeEntries,
+    expenseEntries = [],
+    incomeEntries = [],
     categoriesExpense,
     categoriesIncome,
   ] = valueRanges.map(vR => vR.values);
@@ -174,3 +180,5 @@ export async function editEntry(values) {
     requestBody,
   );
 }
+
+export { createNewSpreadsheet, createNewSheetFromTemplateWithTitle };

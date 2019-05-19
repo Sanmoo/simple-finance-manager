@@ -42,6 +42,8 @@ function Dashboard({
   onAddIncome,
   onSpreadsheetIdProvided,
   addEntryButtonEnabled,
+  onCreateNewSpreadsheet,
+  isLoading,
 }) {
   useEffect(() => {
     if (sId) {
@@ -54,7 +56,13 @@ function Dashboard({
   const [open, setOpen] = useState(false);
 
   if (!sId) {
-    return <SpreadsheetIdInputCard onSubmitSId={onSpreadsheetIdProvided} />;
+    return (
+      <SpreadsheetIdInputCard
+        onCreateNewSpreadsheet={onCreateNewSpreadsheet}
+        onSubmitSId={onSpreadsheetIdProvided}
+        isLoading={isLoading}
+      />
+    );
   }
 
   const onClose = () => setOpen(false);
@@ -107,6 +115,8 @@ Dashboard.propTypes = {
   onAddIncome: PropTypes.func.isRequired,
   onAddExpense: PropTypes.func.isRequired,
   addEntryButtonEnabled: PropTypes.bool.isRequired,
+  onCreateNewSpreadsheet: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
 
 export default withStyles(styles)(Dashboard);

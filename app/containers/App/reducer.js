@@ -28,6 +28,7 @@ const appReducer = (state = initialState, action) =>
         break;
       case SIGN_OFF:
         draft.authToken = null;
+        draft.spreadsheetId = null;
         break;
     }
   });

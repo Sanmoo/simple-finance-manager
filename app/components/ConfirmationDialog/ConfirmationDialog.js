@@ -19,6 +19,8 @@ export const ConfirmationDialog = ({
   onConfirm,
   title,
   content,
+  onConfirmText,
+  onDismissText,
 }) => (
   <div>
     <Dialog
@@ -35,10 +37,10 @@ export const ConfirmationDialog = ({
       </DialogContent>
       <DialogActions>
         <Button onClick={onDismiss} color="primary">
-          Cancel
+          {onDismissText}
         </Button>
         <Button onClick={onConfirm} color="primary" autoFocus>
-          Confirm
+          {onConfirmText}
         </Button>
       </DialogActions>
     </Dialog>
@@ -50,11 +52,15 @@ ConfirmationDialog.propTypes = {
   onDismiss: PropTypes.func.isRequired,
   title: PropTypes.string,
   onConfirm: PropTypes.func.isRequired,
+  onConfirmText: PropTypes.string,
   content: PropTypes.string.isRequired,
+  onDismissText: PropTypes.string,
 };
 
 ConfirmationDialog.defaultProps = {
   title: 'Atenção',
+  onConfirmText: 'Confirm',
+  onDismissText: 'Cancel',
 };
 
 export default memo(ConfirmationDialog);

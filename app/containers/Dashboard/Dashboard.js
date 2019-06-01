@@ -1,14 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import ConfirmationDialog from 'components/ConfirmationDialog';
 import styled from 'styled-components';
 import SpreadsheetIdInputCard from 'components/SpreadsheetIdInputCard';
-import { syncLocalCache, getDashboardInfo } from 'utils/business';
 import { withStyles } from '@material-ui/core/styles';
 import SpeedDial from '@material-ui/lab/SpeedDial';
 import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon';
 import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import { getSheetTitleForCurrentMonth } from 'utils/business';
+import {
+  ACTIONABLE_DIALOG_NO_SHEETS,
+  ACTIONABLE_DIALOG_PREVIOUS_MONTH_SHEET,
+} from './constants';
 
 import DashboardContent from './DashboardContent';
 
@@ -35,7 +40,6 @@ const actions = [
 
 function Dashboard({
   sId,
-  saveKey,
   dashInfo,
   classes,
   onAddExpense,
@@ -44,15 +48,11 @@ function Dashboard({
   addEntryButtonEnabled,
   onCreateNewSpreadsheet,
   isLoading,
+  actionableDialogType,
+  onCreateSheetFromGenericTemplate,
+  onTrySyncAgain,
+  onCreateSheetFromPreviousMonth,
 }) {
-  useEffect(() => {
-    if (sId) {
-      syncLocalCache(sId)
-        .then(getDashboardInfo)
-        .then(value => saveKey('dashInfo', value));
-    }
-  }, [sId, saveKey]);
-
   const [open, setOpen] = useState(false);
 
   if (!sId) {
@@ -71,7 +71,25 @@ function Dashboard({
 
   return (
     <DashboardContainer>
-      <DashboardContent dashInfo={dashInfo} />
+      {dashInfo && <DashboardContent dashInfo={dashInfo} />}
+      <ConfirmationDialog
+        opened={actionableDialogType === ACTIONABLE_DIALOG_PREVIOUS_MONTH_SHEET}
+        title="Oops"
+        content="We noted you have a sheet from last month, but not one for the current month. Would you like us to create a sheet for the current month using the previous one as template?"
+        onConfirm={() => onCreateSheetFromPreviousMonth(sId)}
+        onConfirmText="Yes, please do"
+        onDismissText="No. Please try again"
+        onDismiss={() => onTrySyncAgain(sId)}
+      />
+      <ConfirmationDialog
+        opened={actionableDialogType === ACTIONABLE_DIALOG_NO_SHEETS}
+        title="Oops"
+        content={`Hey, it looks like you don't have a sheet named ${getSheetTitleForCurrentMonth()}. Would you like me to create one for you from a generic template?`}
+        onConfirm={() => onCreateSheetFromGenericTemplate(sId)}
+        onConfirmText="Yes, please do"
+        onDismissText="No. Please try again"
+        onDismiss={() => onTrySyncAgain(sId)}
+      />
       <div className={classes.speedDialWrapper}>
         {addEntryButtonEnabled && (
           <SpeedDial
@@ -108,7 +126,6 @@ function Dashboard({
 
 Dashboard.propTypes = {
   sId: PropTypes.string,
-  saveKey: PropTypes.func.isRequired,
   onSpreadsheetIdProvided: PropTypes.func.isRequired,
   dashInfo: PropTypes.any,
   classes: PropTypes.object.isRequired,
@@ -117,6 +134,10 @@ Dashboard.propTypes = {
   addEntryButtonEnabled: PropTypes.bool.isRequired,
   onCreateNewSpreadsheet: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
+  actionableDialogType: PropTypes.string,
+  onCreateSheetFromGenericTemplate: PropTypes.func.isRequired,
+  onTrySyncAgain: PropTypes.func.isRequired,
+  onCreateSheetFromPreviousMonth: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(Dashboard);

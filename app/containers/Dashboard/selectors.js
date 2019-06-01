@@ -21,9 +21,16 @@ const makeSelectIsLoading = () =>
     dashState => dashState.isLoading,
   );
 
+const makeSelectActionableDialogType = () =>
+  createSelector(
+    selectDashboard,
+    dashState => dashState.actionableDialogType,
+  );
+
 export {
   selectDashboard,
   makeSelectDashInfo,
   makeSelectAddEntryButtonEnabled,
   makeSelectIsLoading,
+  makeSelectActionableDialogType,
 };

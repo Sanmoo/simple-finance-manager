@@ -8,13 +8,22 @@ import injectSaga from 'utils/injectSaga';
 import { makeSelectSId } from 'containers/App/selectors';
 import { saveKey as saveGlobalKey } from 'containers/App/actions';
 import { TYPE_EXPENSE, TYPE_INCOME } from 'utils/businessConstants';
+import withLifecycle from '@hocs/with-lifecycle';
 
 import Dashboard from './Dashboard';
-import { saveKey, createNewSpreadsheet } from './actions';
+import {
+  saveKey,
+  createNewSpreadsheet,
+  onSyncLocalCache,
+  createSheetFromGenericTemplate,
+  createSheetFromPreviousMonth,
+  trySyncAgain,
+} from './actions';
 import {
   makeSelectDashInfo,
   makeSelectAddEntryButtonEnabled,
   makeSelectIsLoading,
+  makeSelectActionableDialogType,
 } from './selectors';
 
 import reducer from './reducer';
@@ -25,6 +34,7 @@ const mapStateToProps = createStructuredSelector({
   dashInfo: makeSelectDashInfo(),
   addEntryButtonEnabled: makeSelectAddEntryButtonEnabled(),
   isLoading: makeSelectIsLoading(),
+  actionableDialogType: makeSelectActionableDialogType(),
 });
 
 export function mapDispatchToProps(dispatch) {
@@ -35,6 +45,10 @@ export function mapDispatchToProps(dispatch) {
     onSpreadsheetIdProvided: sId =>
       dispatch(saveGlobalKey('spreadsheetId', sId)),
     onCreateNewSpreadsheet: () => dispatch(createNewSpreadsheet()),
+    onSyncLocalCache: sId => dispatch(onSyncLocalCache(sId)),
+    onCreateSheetFromGenericTemplate: sId => dispatch(createSheetFromGenericTemplate(sId)),
+    onCreateSheetFromPreviousMonth: sId => dispatch(createSheetFromPreviousMonth(sId)),
+    onTrySyncAgain: sId => dispatch(trySyncAgain(sId)),
   };
 }
 
@@ -50,5 +64,17 @@ export default compose(
   withConnect,
   withReducer,
   withSaga,
+  withLifecycle({
+    onDidUpdate(prevProps, props) {
+      if (!prevProps.sId && props.sId) {
+        props.onSyncLocalCache(props.sId);
+      }
+    },
+    onDidMount(props) {
+      if (props.sId) {
+        props.onSyncLocalCache(props.sId);
+      }
+    },
+  }),
   memo,
 )(Dashboard);

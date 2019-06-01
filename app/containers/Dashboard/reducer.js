@@ -6,6 +6,7 @@ import { SAVE_KEY } from './constants';
 export const initialState = {
   dashInfo: [],
   isLoading: false,
+  actionableDialogType: null,
 };
 
 /* eslint-disable default-case, no-param-reassign, consistent-return */

@@ -1,10 +1,16 @@
 import {
   getSpreadsheetRanges,
   initGApi,
-  createNewSpreadsheet,
-  createNewSheetFromTemplateWithTitle,
+  createBlankSpreadsheet,
+  deleteSheet,
+  getAvailableSheetTitles,
+  copySheet,
+  updateSheetTitle,
+  fetchSheetIdByTitle,
+  clearSheetCellRanges,
 } from 'utils/googleApis';
 import { TYPE_EXPENSE, TYPE_INCOME } from 'utils/businessConstants';
+import { ERROR_SHEET_NOT_FOUND } from 'utils/constants';
 
 import format from 'date-fns/format';
 
@@ -55,15 +61,28 @@ const createCategoryGoalFromSsRow = type => ([name, value], index) => ({
 export async function collectSpreadsheetData(spreadsheetId, sheetTitle) {
   await initGApi();
 
-  const { valueRanges } = await getSpreadsheetRanges({
-    spreadsheetId,
-    ranges: [
-      `${sheetTitle}!${EXPENSE_ENTRIES_RANGE}`,
-      `${sheetTitle}!${INCOME_ENTRIES_RANGE}`,
-      `${sheetTitle}!${EXPENSE_CATEGORIES_RANGE}`,
-      `${sheetTitle}!${INCOME_CATEGORIES_RANGE}`,
-    ],
-  });
+  let valueRanges;
+
+  try {
+    ({ valueRanges } = await getSpreadsheetRanges({
+      spreadsheetId,
+      ranges: [
+        `${sheetTitle}!${EXPENSE_ENTRIES_RANGE}`,
+        `${sheetTitle}!${INCOME_ENTRIES_RANGE}`,
+        `${sheetTitle}!${EXPENSE_CATEGORIES_RANGE}`,
+        `${sheetTitle}!${INCOME_CATEGORIES_RANGE}`,
+      ],
+    }));
+  } catch (e) {
+    if (e && e.result && e.result.error) {
+      const { code, status } = e.result.error;
+      if (code === 400 && status === 'INVALID_ARGUMENT') {
+        const craftedError = { type: ERROR_SHEET_NOT_FOUND, object: e };
+        throw craftedError;
+      }
+    }
+    throw e;
+  }
 
   const [
     expenseEntries = [],
@@ -91,7 +110,7 @@ export async function collectSpreadsheetData(spreadsheetId, sheetTitle) {
   return { entries, categoryGoals };
 }
 
-export async function addNewEntry(values) {
+export async function addNewEntry(sheetTitle, values) {
   await initGApi();
 
   const {
@@ -106,7 +125,9 @@ export async function addNewEntry(values) {
 
   const requestParams = {
     spreadsheetId,
-    range: type === TYPE_EXPENSE ? EXPENSE_ENTRIES_RANGE : INCOME_ENTRIES_RANGE,
+    range: `'${sheetTitle}'!${
+      type === TYPE_EXPENSE ? EXPENSE_ENTRIES_RANGE : INCOME_ENTRIES_RANGE
+    }`,
     insertDataOption: 'OVERWRITE',
     valueInputOption: 'RAW',
   };
@@ -144,7 +165,7 @@ export async function addNewEntry(values) {
   return lineStart;
 }
 
-export async function editEntry(values) {
+export async function editEntry(sheetTitle, values) {
   await initGApi();
 
   const {
@@ -159,7 +180,9 @@ export async function editEntry(values) {
   } = values;
   const requestParams = {
     spreadsheetId,
-    range: type === TYPE_EXPENSE ? `A${line}:E${line}` : `M${line}:E${line}`,
+    range: `'${sheetTitle}'!${
+      type === TYPE_EXPENSE ? `A${line}:E${line}` : `M${line}:E${line}`
+    }`,
     valueInputOption: 'RAW',
   };
   const requestBody = {
@@ -181,4 +204,69 @@ export async function editEntry(values) {
   );
 }
 
-export { createNewSpreadsheet, createNewSheetFromTemplateWithTitle };
+export async function verifySheetExistence(spreadsheetId, sheetTitle) {
+  await initGApi();
+  const availableSheetTitles = await getAvailableSheetTitles({ spreadsheetId });
+  return availableSheetTitles.includes(sheetTitle);
+}
+
+export async function copySheetWithANewName({
+  originSpreadsheetId,
+  originSheetId,
+  originSheetName,
+  targetSpreadsheetId,
+  targetSheetTitle,
+}) {
+  await initGApi();
+
+  let sheetId = originSheetId;
+  if (!sheetId && originSheetName) {
+    sheetId = await fetchSheetIdByTitle({
+      spreadsheetId: originSpreadsheetId,
+      sheetTitle: originSheetName,
+    });
+  }
+
+  const newSheetId = await copySheet({
+    originSpreadsheetId,
+    originSheetId: sheetId,
+    targetSpreadsheetId,
+  });
+
+  await updateSheetTitle({
+    spreadsheetId: targetSpreadsheetId,
+    sheetId: newSheetId,
+    title: targetSheetTitle,
+  });
+
+  return newSheetId;
+}
+
+export async function createNewSpreadsheet(title) {
+  await initGApi();
+  return createBlankSpreadsheet(title);
+}
+
+export async function cleanAllEntries({ spreadsheetId, sheetTitle }) {
+  await initGApi();
+
+  await clearSheetCellRanges({
+    spreadsheetId,
+    ranges: [
+      `${sheetTitle}!${EXPENSE_ENTRIES_RANGE}`,
+      `${sheetTitle}!${INCOME_ENTRIES_RANGE}`,
+    ],
+  });
+}
+
+export async function prepareSpreadsheetForNewUsage({
+  newSpreadsheetId,
+  sheetIdToBeDeleted,
+}) {
+  await initGApi();
+
+  await deleteSheet({
+    spreadsheetId: newSpreadsheetId,
+    sheetId: sheetIdToBeDeleted,
+  });
+}

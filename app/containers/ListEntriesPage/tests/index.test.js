@@ -9,38 +9,54 @@
 import React from 'react';
 import { render } from 'react-testing-library';
 import { IntlProvider } from 'react-intl';
-// import 'jest-dom/extend-expect'; // add some helpful assertions
+import { TYPE_EXPENSE } from 'utils/businessConstants';
+import 'fake-indexeddb/auto';
 
 import ListEntriesPage from '../ListEntriesPage';
 import { DEFAULT_LOCALE } from '../../../i18n';
 
 describe('<ListEntriesPage />', () => {
+  let props;
+
+  beforeEach(() => {
+    props = {
+      entries: [
+        {
+          date: '10/11/2019',
+          type: 'type',
+          originSheetTitle: 'May-2019',
+          value: 20,
+          category: 'Category A',
+          desc: 'My Desc',
+        },
+      ],
+      location: {
+        search: 'my search',
+      },
+      onEntriesLoaded: jest.fn(),
+      shownType: TYPE_EXPENSE,
+      onViewIncomesClick: jest.fn(),
+      onViewExpensesClick: jest.fn(),
+      onEditEntryClick: jest.fn(),
+    };
+  });
+
   it('Expect to not log errors in console', () => {
     const spy = jest.spyOn(global.console, 'error');
-    const dispatch = jest.fn();
     render(
       <IntlProvider locale={DEFAULT_LOCALE}>
-        <ListEntriesPage dispatch={dispatch} />
+        <ListEntriesPage {...props} />
       </IntlProvider>,
     );
     expect(spy).not.toHaveBeenCalled();
   });
 
-  it('Expect to have additional unit tests specified', () => {
-    expect(true).toEqual(false);
-  });
-
-  /**
-   * Unskip this test to use it
-   *
-   * @see {@link https://jestjs.io/docs/en/api#testskipname-fn}
-   */
-  it.skip('Should render and match the snapshot', () => {
+  it('Should render and match the snapshot', () => {
     const {
       container: { firstChild },
     } = render(
       <IntlProvider locale={DEFAULT_LOCALE}>
-        <ListEntriesPage />
+        <ListEntriesPage {...props} />
       </IntlProvider>,
     );
     expect(firstChild).toMatchSnapshot();

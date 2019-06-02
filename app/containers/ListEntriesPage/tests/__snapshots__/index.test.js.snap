@@ -1,0 +1,101 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ListEntriesPage /> Should render and match the snapshot 1`] = `
+<div>
+  <div
+    class="MuiPaper-root-140 MuiPaper-elevation1-143 MuiPaper-rounded-141 MuiCard-root-139 content"
+  >
+    <div
+      class="MuiCardContent-root-167"
+    >
+      <div
+        class="MuiPaper-root-140 MuiPaper-elevation2-144 MuiPaper-rounded-141 ListEntriesPage-root-135"
+      >
+        <div
+          class="MuiToolbar-root-173 MuiToolbar-regular-175 MuiToolbar-gutters-174 TableToolbar-root-168"
+        >
+          <div
+            class="TableToolbar-title-172"
+          >
+            <h6
+              class="MuiTypography-root-177 MuiTypography-h6-194"
+              id="tableTitle"
+            >
+              Expenses Jun-2019
+            </h6>
+          </div>
+          <div
+            class="TableToolbar-spacer-170"
+          />
+          <div
+            class="TableToolbar-actions-171"
+          >
+            <button
+              aria-label="Filters"
+              class="MuiButtonBase-root-227 MuiIconButton-root-221"
+              tabindex="0"
+              title="Filters"
+              type="button"
+            >
+              <span
+                class="MuiIconButton-label-226"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="MuiSvgIcon-root-230"
+                  focusable="false"
+                  role="presentation"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z"
+                  />
+                  <path
+                    d="M0 0h24v24H0z"
+                    fill="none"
+                  />
+                </svg>
+              </span>
+              <span
+                class="MuiTouchRipple-root-262"
+              />
+            </button>
+          </div>
+        </div>
+        <table
+          class="MuiTable-root-243 ListEntriesPage-table-138"
+        >
+          <tbody
+            class="MuiTableBody-root-244"
+          >
+            <tr
+              class="MuiTableRow-root-245"
+            >
+              <td
+                class="MuiTableCell-root-250 MuiTableCell-body-252 ListEntriesPage-cell-136"
+              >
+                10
+              </td>
+              <td
+                class="MuiTableCell-root-250 MuiTableCell-body-252 MuiTableCell-alignLeft-258 ListEntriesPage-cell-136"
+              >
+                My Desc
+              </td>
+              <td
+                class="MuiTableCell-root-250 MuiTableCell-body-252 MuiTableCell-alignLeft-258 ListEntriesPage-cell-136"
+              >
+                Category A
+              </td>
+              <td
+                class="MuiTableCell-root-250 MuiTableCell-body-252 MuiTableCell-alignLeft-258 ListEntriesPage-cell-136 ListEntriesPage-cellValue-137"
+              >
+                20
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -131,9 +131,9 @@ ListEntriesPage.propTypes = {
     search: PropTypes.string,
   }),
   onEntriesLoaded: PropTypes.func.isRequired,
-  onViewExpensesClick: PropTypes.func,
+  onViewExpensesClick: PropTypes.func.isRequired,
   shownType: PropTypes.oneOf([TYPE_EXPENSE, TYPE_INCOME]),
-  onViewIncomesClick: PropTypes.func,
+  onViewIncomesClick: PropTypes.func.isRequired,
   onEditEntryClick: PropTypes.func.isRequired,
 };
 

@@ -1,0 +1,189 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<EditEntryPage /> Should render and match the snapshot 1`] = `
+<div>
+  <form
+    class="InjectIntl-EditEntryPage--container-120"
+  >
+    <div
+      class="MuiFormControl-root-128 MuiFormControl-marginDense-130 InjectIntl-EditEntryPage--textField-121"
+    >
+      <label
+        class="MuiFormLabel-root-143 MuiFormLabel-filled-147 MuiInputLabel-root-132 MuiInputLabel-formControl-137 MuiInputLabel-animated-140 MuiInputLabel-shrink-139 MuiInputLabel-marginDense-138"
+        data-shrink="true"
+        for="entry-date"
+      >
+        Date
+      </label>
+      <div
+        class="MuiInputBase-root-163 MuiInput-root-150 MuiInput-underline-154 MuiInputBase-formControl-164 MuiInput-formControl-151 MuiInputBase-marginDense-170"
+      >
+        <input
+          aria-invalid="false"
+          class="MuiInputBase-input-173 MuiInput-input-158 MuiInputBase-inputType-176 MuiInput-inputType-161 MuiInputBase-inputMarginDense-174 MuiInput-inputMarginDense-159"
+          id="entry-date"
+          type="date"
+          value="2019-06-02"
+        />
+      </div>
+    </div>
+    <div
+      class="MuiFormControl-root-128 MuiFormControl-marginDense-130 InjectIntl-EditEntryPage--textField-121"
+    >
+      <label
+        class="MuiFormLabel-root-143 MuiFormLabel-filled-147 MuiInputLabel-root-132 MuiInputLabel-formControl-137 MuiInputLabel-animated-140 MuiInputLabel-shrink-139 MuiInputLabel-marginDense-138"
+        data-shrink="true"
+        for="entry-description"
+      >
+        Description
+      </label>
+      <div
+        class="MuiInputBase-root-163 MuiInput-root-150 MuiInput-underline-154 MuiInputBase-formControl-164 MuiInput-formControl-151 MuiInputBase-marginDense-170 MuiInputBase-multiline-171 MuiInput-multiline-156"
+      >
+        <div
+          class="MuiPrivateTextarea-root-180"
+        >
+          <textarea
+            aria-hidden="true"
+            class="MuiPrivateTextarea-textarea-181 MuiPrivateTextarea-shadow-182"
+            readonly=""
+            rows="1"
+            tabindex="-1"
+          />
+          <textarea
+            aria-hidden="true"
+            class="MuiPrivateTextarea-textarea-181 MuiPrivateTextarea-shadow-182"
+            readonly=""
+            rows="1"
+            tabindex="-1"
+          >
+            anything
+          </textarea>
+          <textarea
+            aria-invalid="false"
+            class="MuiPrivateTextarea-textarea-181 MuiInputBase-input-173 MuiInput-input-158 MuiInputBase-inputMultiline-175 MuiInput-inputMultiline-160 MuiInputBase-inputMarginDense-174 MuiInput-inputMarginDense-159"
+            id="entry-description"
+            rows="1"
+            style="height: 19px;"
+          >
+            anything
+          </textarea>
+        </div>
+      </div>
+    </div>
+    <div
+      class="MuiFormControl-root-128 MuiFormControl-marginNormal-129 InjectIntl-EditEntryPage--textField-121"
+    >
+      <label
+        class="MuiFormLabel-root-143 MuiFormLabel-filled-147 MuiInputLabel-root-132 MuiInputLabel-formControl-137 MuiInputLabel-animated-140 MuiInputLabel-shrink-139"
+        data-shrink="true"
+        for="entry-category"
+      >
+        Category
+      </label>
+      <div
+        class="MuiInputBase-root-163 MuiInput-root-150 MuiInput-underline-154 MuiInputBase-formControl-164 MuiInput-formControl-151"
+      >
+        <div
+          class="MuiSelect-root-183"
+        >
+          <div
+            aria-haspopup="true"
+            aria-pressed="false"
+            class="MuiSelect-select-184 MuiSelect-selectMenu-187 MuiInputBase-input-173 MuiInput-input-158"
+            role="button"
+            tabindex="0"
+          >
+            <span>
+              ​
+            </span>
+          </div>
+          <input
+            id="entry-category"
+            type="hidden"
+            value="My Category"
+          />
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root-190 MuiSelect-icon-189"
+            focusable="false"
+            role="presentation"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M7 10l5 5 5-5z"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div
+      class="MuiFormControl-root-128 MuiFormControl-marginDense-130 InjectIntl-EditEntryPage--textField-121"
+    >
+      <label
+        class="MuiFormLabel-root-143 MuiFormLabel-filled-147 MuiInputLabel-root-132 MuiInputLabel-formControl-137 MuiInputLabel-animated-140 MuiInputLabel-shrink-139 MuiInputLabel-marginDense-138"
+        data-shrink="true"
+        for="entry-value"
+      >
+        Value
+      </label>
+      <div
+        class="MuiInputBase-root-163 MuiInput-root-150 MuiInput-underline-154 MuiInputBase-formControl-164 MuiInput-formControl-151 MuiInputBase-marginDense-170"
+      >
+        <input
+          aria-invalid="false"
+          class="MuiInputBase-input-173 MuiInput-input-158 MuiInputBase-inputType-176 MuiInput-inputType-161 MuiInputBase-inputMarginDense-174 MuiInput-inputMarginDense-159"
+          id="entry-value"
+          type="number"
+          value="50"
+        />
+      </div>
+    </div>
+  </form>
+  <div>
+    <button
+      class="MuiButtonBase-root-229 MuiButton-root-203 MuiButton-contained-214 MuiButton-raised-217 MuiButton-sizeSmall-226 InjectIntl-EditEntryPage--button-124"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        class="MuiButton-label-204"
+      >
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root-190 InjectIntl-EditEntryPage--leftIcon-125"
+          focusable="false"
+          role="presentation"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M0 0h24v24H0z"
+            fill="none"
+          />
+          <path
+            d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"
+          />
+        </svg>
+        Save
+      </span>
+      <span
+        class="MuiTouchRipple-root-232"
+      />
+    </button>
+    <button
+      class="MuiButtonBase-root-229 MuiButton-root-203 MuiButton-contained-214 MuiButton-raised-217 MuiButton-sizeSmall-226 InjectIntl-EditEntryPage--button-124"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        class="MuiButton-label-204"
+      >
+        Cancel
+      </span>
+      <span
+        class="MuiTouchRipple-root-232"
+      />
+    </button>
+  </div>
+</div>
+`;

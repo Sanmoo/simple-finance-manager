@@ -10,28 +10,33 @@ import React from 'react';
 import { render } from 'react-testing-library';
 // import 'jest-dom/extend-expect'; // add some helpful assertions
 
-import ConfirmationDialog from '../index';
+import ConfirmationDialog from '../ConfirmationDialog';
 
 describe('<ConfirmationDialog />', () => {
+  let props;
+
+  beforeEach(() => {
+    props = {
+      opened: false,
+      onDismiss: jest.fn(),
+      title: 'My Title',
+      onConfirm: jest.fn(),
+      onConfirmText: 'Confirm',
+      content: 'My content',
+      onDismissText: 'Dismiss',
+    };
+  });
+
   it('Expect to not log errors in console', () => {
     const spy = jest.spyOn(global.console, 'error');
-    render(<ConfirmationDialog />);
+    render(<ConfirmationDialog {...props} />);
     expect(spy).not.toHaveBeenCalled();
   });
 
-  it('Expect to have additional unit tests specified', () => {
-    expect(true).toEqual(false);
-  });
-
-  /**
-   * Unskip this test to use it
-   *
-   * @see {@link https://jestjs.io/docs/en/api#testskipname-fn}
-   */
-  it.skip('Should render and match the snapshot', () => {
+  it('Should render and match the snapshot', () => {
     const {
       container: { firstChild },
-    } = render(<ConfirmationDialog />);
+    } = render(<ConfirmationDialog {...props} />);
     expect(firstChild).toMatchSnapshot();
   });
 });

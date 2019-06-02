@@ -1,14 +1,12 @@
 // import produce from 'immer';
-import editEntryPageReducer from '../reducer';
+import editEntryPageReducer, { initialState } from '../reducer';
 // import { someAction } from '../actions';
 
 /* eslint-disable default-case, no-param-reassign */
 describe('editEntryPageReducer', () => {
   let state;
   beforeEach(() => {
-    state = {
-      // default state params here
-    };
+    state = initialState;
   });
 
   it('returns the initial state', () => {

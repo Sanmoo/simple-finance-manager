@@ -10,7 +10,7 @@ import React from 'react';
 import { render } from 'react-testing-library';
 // import 'jest-dom/extend-expect'; // add some helpful assertions
 
-import { SnackbarContainer } from '../index';
+import SnackbarContainer from '../SnackbarContainer';
 
 describe('<SnackbarContainer />', () => {
   it('Expect to not log errors in console', () => {

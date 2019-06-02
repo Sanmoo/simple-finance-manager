@@ -46,8 +46,10 @@ export function mapDispatchToProps(dispatch) {
       dispatch(saveGlobalKey('spreadsheetId', sId)),
     onCreateNewSpreadsheet: () => dispatch(createNewSpreadsheet()),
     onSyncLocalCache: sId => dispatch(onSyncLocalCache(sId)),
-    onCreateSheetFromGenericTemplate: sId => dispatch(createSheetFromGenericTemplate(sId)),
-    onCreateSheetFromPreviousMonth: sId => dispatch(createSheetFromPreviousMonth(sId)),
+    onCreateSheetFromGenericTemplate: sId =>
+      dispatch(createSheetFromGenericTemplate(sId)),
+    onCreateSheetFromPreviousMonth: sId =>
+      dispatch(createSheetFromPreviousMonth(sId)),
     onTrySyncAgain: sId => dispatch(trySyncAgain(sId)),
   };
 }

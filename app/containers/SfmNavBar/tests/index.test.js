@@ -10,7 +10,7 @@ import React from 'react';
 import { render } from 'react-testing-library';
 // import 'jest-dom/extend-expect'; // add some helpful assertions
 
-import { SfmNavBar } from '../index';
+import SfmNavBar from '../SfmNavBar';
 
 describe('<SfmNavBar />', () => {
   it('Expect to not log errors in console', () => {

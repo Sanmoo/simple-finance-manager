@@ -1,4 +1,5 @@
 // import produce from 'immer';
+import { TYPE_EXPENSE } from 'utils/businessConstants';
 import listEntriesPageReducer from '../reducer';
 // import { someAction } from '../actions';
 
@@ -7,7 +8,10 @@ describe('listEntriesPageReducer', () => {
   let state;
   beforeEach(() => {
     state = {
-      // default state params here
+      entries: [],
+      filterOptions: {
+        shownType: TYPE_EXPENSE,
+      },
     };
   });
 

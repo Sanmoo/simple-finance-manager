@@ -22,6 +22,7 @@ import {
   verifySheetExistence,
   copySheetWithANewName,
   cleanAllEntries,
+  fetchSpreadsheetUrl,
 } from 'utils/spreadsheet';
 import { TYPE_EXPENSE, TYPE_INCOME } from 'utils/businessConstants';
 
@@ -73,6 +74,10 @@ export async function getAllEntriesForCurrentMonth() {
     r.value = parseFloat(r.value || 0); // eslint-disable-line
   });
   return records;
+}
+
+export async function getSpreadsheetUrl(sId) {
+  return fetchSpreadsheetUrl(sId);
 }
 
 export async function getDashboardInfo() {

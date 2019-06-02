@@ -75,6 +75,12 @@ const makeSelectSId = () =>
     globalState => globalState.spreadsheetId,
   );
 
+const makeSelectSUrl = () =>
+  createSelector(
+    selectGlobal,
+    globalState => globalState.spreadsheetUrl,
+  );
+
 export {
   selectGlobal,
   makeSelectCurrentUser,
@@ -85,4 +91,5 @@ export {
   makeSelectAuthToken,
   makeSelectSId,
   makeSelectCurrentPage,
+  makeSelectSUrl,
 };

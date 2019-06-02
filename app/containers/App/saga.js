@@ -6,12 +6,8 @@ import { takeLatest } from 'redux-saga/effects';
 import { SAVE_KEY, SIGN_OFF } from 'containers/App/constants';
 
 export function* handleSaveKey({ key, value }) {
-  if (key === 'authToken') {
-    localStorage.setItem('authToken', value);
-  }
-
-  if (key === 'spreadsheetId') {
-    localStorage.setItem('spreadsheetId', value);
+  if (['authToken', 'spreadsheetId', 'spreadsheetUrl'].includes(key)) {
+    localStorage.setItem(key, value);
   }
 }
 

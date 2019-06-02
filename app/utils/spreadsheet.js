@@ -8,6 +8,7 @@ import {
   updateSheetTitle,
   fetchSheetIdByTitle,
   clearSheetCellRanges,
+  getSpreadsheet,
 } from 'utils/googleApis';
 import { TYPE_EXPENSE, TYPE_INCOME } from 'utils/businessConstants';
 import { ERROR_SHEET_NOT_FOUND } from 'utils/constants';
@@ -269,4 +270,10 @@ export async function prepareSpreadsheetForNewUsage({
     spreadsheetId: newSpreadsheetId,
     sheetId: sheetIdToBeDeleted,
   });
+}
+
+export async function fetchSpreadsheetUrl(sId) {
+  await initGApi();
+  const { spreadsheetUrl } = await getSpreadsheet(sId);
+  return spreadsheetUrl;
 }

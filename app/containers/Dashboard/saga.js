@@ -21,6 +21,7 @@ import {
   syncLocalCache,
   getPreviousMonthSheetName,
   verifySheetExistence,
+  getSpreadsheetUrl,
 } from 'utils/business';
 import { saveKey as saveGlobalKey } from 'containers/App/actions';
 import { ERROR_SHEET_NOT_FOUND } from 'utils/constants';
@@ -47,12 +48,11 @@ export function* handleCreateNewSpreadsheet() {
 
 export function* handleSyncLocalCache({ sId }) {
   try {
-    if (sId === null) {
-      return;
-    }
     yield syncLocalCache(sId);
     const dashInfo = yield getDashboardInfo();
+    const spreadsheetUrl = yield getSpreadsheetUrl(sId);
     yield put(saveKey('dashInfo', dashInfo));
+    yield put(saveGlobalKey('spreadsheetUrl', spreadsheetUrl));
   } catch (e) {
     if (e && e.type === ERROR_SHEET_NOT_FOUND) {
       const lastMonthSheetName = getPreviousMonthSheetName();

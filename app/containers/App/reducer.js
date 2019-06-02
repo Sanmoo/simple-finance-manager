@@ -17,6 +17,7 @@ import { SAVE_KEY, SIGN_OFF } from './constants';
 export const initialState = {
   authToken: localStorage.getItem('authToken'),
   spreadsheetId: localStorage.getItem('spreadsheetId'),
+  spreadsheetUrl: localStorage.getItem('spreadsheetUrl'),
 };
 
 /* eslint-disable default-case, no-param-reassign, consistent-return */

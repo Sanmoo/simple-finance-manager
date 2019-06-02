@@ -22,7 +22,9 @@ import Drawer from '@material-ui/core/Drawer';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ReceiptIcon from '@material-ui/icons/Receipt';
+import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 import DashboardIcon from '@material-ui/icons/Dashboard';
+import FileCopyIcon from '@material-ui/icons/FileCopy';
 import MenuIcon from '@material-ui/icons/Menu';
 import Typography from './Typography';
 
@@ -71,6 +73,9 @@ const SfmNavBar = ({
   theme,
   onDashboardClick,
   onEntriesClick,
+  onGoToSpreadsheetClick,
+  onCopySpreadsheetLinkClicked,
+  spreadsheetUrl,
 }) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -92,6 +97,24 @@ const SfmNavBar = ({
 
   if (!title) {
     return <div />;
+  }
+
+  const drawerMenuItems = [
+    ['Dashboard', onDashboardClick, <DashboardIcon />],
+    ['Entradas', onEntriesClick, <ReceiptIcon />],
+  ];
+
+  if (spreadsheetUrl) {
+    drawerMenuItems.push([
+      'Go to Spreadsheet',
+      () => onGoToSpreadsheetClick(spreadsheetUrl),
+      <OpenInNewIcon />,
+    ]);
+    drawerMenuItems.push([
+      'Copy Spreadsheet link',
+      () => onCopySpreadsheetLinkClicked(spreadsheetUrl),
+      <FileCopyIcon />,
+    ]);
   }
 
   return (
@@ -167,23 +190,17 @@ const SfmNavBar = ({
         </div>
         <Divider />
         <List>
-          {['Dashboard', 'Entradas'].map((text, index) => (
+          {drawerMenuItems.map(([text, cb, icon], index) => (
             <ListItem
               button
               key={text}
               onClick={() => {
-                if (index === 0) {
-                  onDashboardClick();
-                } else if (index === 1) {
-                  onEntriesClick();
-                } else {
-                  throw new Error('Assert false');
-                }
+                cb();
                 onDrawerClose();
               }}
             >
               <ListItemIcon>
-                {index === 0 ? <DashboardIcon /> : <ReceiptIcon />}
+                { icon }
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
@@ -210,6 +227,9 @@ SfmNavBar.propTypes = {
   onDrawerClose: PropTypes.func.isRequired,
   onDashboardClick: PropTypes.func.isRequired,
   onEntriesClick: PropTypes.func.isRequired,
+  onGoToSpreadsheetClick: PropTypes.func.isRequired,
+  onCopySpreadsheetLinkClicked: PropTypes.func.isRequired,
+  spreadsheetUrl: PropTypes.string,
 };
 
 export default withStyles(styles, { withTheme: true })(SfmNavBar);

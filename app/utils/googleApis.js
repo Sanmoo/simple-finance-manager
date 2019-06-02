@@ -44,7 +44,7 @@ export function initGApi() {
   });
 }
 
-async function getSpreadsheet(spreadsheetId) {
+export async function getSpreadsheet(spreadsheetId) {
   return (await gapi.client.sheets.spreadsheets.get({ spreadsheetId })).result;
 }
 

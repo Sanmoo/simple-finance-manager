@@ -47,8 +47,8 @@ const styles = () => ({
 });
 
 const SHOWN_TYPE_TITLES = {
-  [TYPE_EXPENSE]: 'Despesas',
-  [TYPE_INCOME]: 'Receitas',
+  [TYPE_EXPENSE]: 'Expenses',
+  [TYPE_INCOME]: 'Income',
 };
 
 function ListEntriesPage({
@@ -67,10 +67,10 @@ function ListEntriesPage({
   return (
     <div>
       <Helmet>
-        <title>Listagem de Entradas</title>
+        <title>Entries List</title>
         <meta
           name="description"
-          content="Página que lista suas entradas já fornecidas"
+          content="Page for listing the entries you already provided"
         />
       </Helmet>
       <Card className="content">
@@ -79,7 +79,7 @@ function ListEntriesPage({
             <TableToolbar
               title={`${
                 SHOWN_TYPE_TITLES[shownType]
-              } de ${getSheetTitleForCurrentMonth()}`}
+              } ${getSheetTitleForCurrentMonth()}`}
               {...{ onViewExpensesClick, onViewIncomesClick }}
             />
             <Table className={classes.table}>

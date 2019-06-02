@@ -52,9 +52,9 @@ const TableToolbar = ({
       </div>
       <div className={classes.spacer} />
       <div className={classes.actions}>
-        <Tooltip title="Filtros">
+        <Tooltip title="Filters">
           <IconButton
-            aria-label="Filtros"
+            aria-label="Filters"
             onClick={evt => setAnchorEl(evt.currentTarget)}
           >
             <FilterListIcon />
@@ -72,7 +72,7 @@ const TableToolbar = ({
               setAnchorEl(null);
             }}
           >
-            Mostrar Despesas
+            Show Expenses
           </MenuItem>
           <MenuItem
             onClick={() => {
@@ -80,7 +80,7 @@ const TableToolbar = ({
               setAnchorEl(null);
             }}
           >
-            Mostrar Receitas
+            Show Income
           </MenuItem>
         </Menu>
       </div>

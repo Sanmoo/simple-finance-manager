@@ -101,7 +101,7 @@ const SfmNavBar = ({
 
   const drawerMenuItems = [
     ['Dashboard', onDashboardClick, <DashboardIcon />],
-    ['Entradas', onEntriesClick, <ReceiptIcon />],
+    ['Entries', onEntriesClick, <ReceiptIcon />],
   ];
 
   if (spreadsheetUrl) {
@@ -190,7 +190,7 @@ const SfmNavBar = ({
         </div>
         <Divider />
         <List>
-          {drawerMenuItems.map(([text, cb, icon], index) => (
+          {drawerMenuItems.map(([text, cb, icon]) => (
             <ListItem
               button
               key={text}
@@ -199,9 +199,7 @@ const SfmNavBar = ({
                 onDrawerClose();
               }}
             >
-              <ListItemIcon>
-                { icon }
-              </ListItemIcon>
+              <ListItemIcon>{icon}</ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
           ))}
@@ -211,7 +209,7 @@ const SfmNavBar = ({
         opened={signOffDialogOpened}
         onDismiss={onSignOffDialogDismiss}
         onConfirm={onSignOffDialogConfirm}
-        content="Tem certeza que deseja sair?"
+        content="Are you sure?"
       />
     </React.Fragment>
   );

@@ -53,7 +53,7 @@ function DashboardContent({ classes, dashInfo }) {
     <Card className="content">
       <CardContent>
         <Typography variant="h5" component="h2">
-          Metas e Despesas
+          Goals and Expenses
         </Typography>
         <Paper className={classes.root}>
           <Table className={classes.table}>

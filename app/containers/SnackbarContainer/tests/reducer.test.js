@@ -7,7 +7,8 @@ describe('snackbarContainerReducer', () => {
   let state;
   beforeEach(() => {
     state = {
-      // default state params here
+      open: false,
+      message: null,
     };
   });
 

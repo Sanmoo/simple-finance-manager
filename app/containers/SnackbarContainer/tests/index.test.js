@@ -8,31 +8,30 @@
 
 import React from 'react';
 import { render } from 'react-testing-library';
-// import 'jest-dom/extend-expect'; // add some helpful assertions
 
 import SnackbarContainer from '../SnackbarContainer';
 
 describe('<SnackbarContainer />', () => {
+  let props;
+
+  beforeEach(() => {
+    props = {
+      open: false,
+      onClose: jest.fn(),
+      message: 'This is my testing message',
+    };
+  });
+
   it('Expect to not log errors in console', () => {
     const spy = jest.spyOn(global.console, 'error');
-    const dispatch = jest.fn();
-    render(<SnackbarContainer dispatch={dispatch} />);
+    render(<SnackbarContainer {...props} />);
     expect(spy).not.toHaveBeenCalled();
   });
 
-  it('Expect to have additional unit tests specified', () => {
-    expect(true).toEqual(false);
-  });
-
-  /**
-   * Unskip this test to use it
-   *
-   * @see {@link https://jestjs.io/docs/en/api#testskipname-fn}
-   */
-  it.skip('Should render and match the snapshot', () => {
+  it('Should render and match the snapshot', () => {
     const {
       container: { firstChild },
-    } = render(<SnackbarContainer />);
+    } = render(<SnackbarContainer {...props} />);
     expect(firstChild).toMatchSnapshot();
   });
 });

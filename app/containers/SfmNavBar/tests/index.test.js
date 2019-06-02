@@ -13,26 +13,33 @@ import { render } from 'react-testing-library';
 import SfmNavBar from '../SfmNavBar';
 
 describe('<SfmNavBar />', () => {
+  let props;
+
+  beforeEach(() => {
+    props = {
+      onSignOff: jest.fn(),
+      title: 'This is my title',
+      drawerOpen: false,
+      onDrawerOpen: jest.fn(),
+      onDrawerClose: jest.fn(),
+      onDashboardClick: jest.fn(),
+      onEntriesClick: jest.fn(),
+      onGoToSpreadsheetClick: jest.fn(),
+      onCopySpreadsheetLinkClicked: jest.fn(),
+      spreadsheetUrl: 'url-test',
+    };
+  });
+
   it('Expect to not log errors in console', () => {
     const spy = jest.spyOn(global.console, 'error');
-    const dispatch = jest.fn();
-    render(<SfmNavBar dispatch={dispatch} />);
+    render(<SfmNavBar {...props} />);
     expect(spy).not.toHaveBeenCalled();
   });
 
-  it('Expect to have additional unit tests specified', () => {
-    expect(true).toEqual(false);
-  });
-
-  /**
-   * Unskip this test to use it
-   *
-   * @see {@link https://jestjs.io/docs/en/api#testskipname-fn}
-   */
-  it.skip('Should render and match the snapshot', () => {
+  it('Should render and match the snapshot', () => {
     const {
       container: { firstChild },
-    } = render(<SfmNavBar />);
+    } = render(<SfmNavBar {...props} />);
     expect(firstChild).toMatchSnapshot();
   });
 });

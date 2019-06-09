@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SpreadsheetIdInputCard /> Should render and match the snapshot 1`] = `
+<div
+  class="MuiPaper-root-158 MuiPaper-elevation1-161 MuiPaper-rounded-159 MuiCard-root-157"
+>
+  <div
+    class="MuiCardContent-root-185"
+  >
+    <h2
+      class="MuiTypography-root-186 MuiTypography-h4-201"
+    >
+      Please provide your spreadsheet Id
+    </h2>
+    <div
+      class="MuiFormControl-root-222 MuiFormControl-marginNormal-223 SpreadsheetIdInputCard__TextField-ocjwh8-0 ihlGeT"
+    >
+      <label
+        class="MuiFormLabel-root-237 MuiInputLabel-root-226 MuiInputLabel-formControl-231 MuiInputLabel-animated-234"
+        data-shrink="false"
+        for="spreadsheetId"
+      >
+        Your spreadsheet Id
+      </label>
+      <div
+        class="MuiInputBase-root-257 MuiInput-root-244 MuiInput-underline-248 MuiInputBase-formControl-258 MuiInput-formControl-245"
+      >
+        <input
+          aria-invalid="false"
+          class="MuiInputBase-input-267 MuiInput-input-252"
+          id="spreadsheetId"
+          type="text"
+          value=""
+        />
+      </div>
+    </div>
+    <p
+      class="MuiTypography-root-186 MuiTypography-subheading-193"
+    >
+      Or click 'Create one for me' if you don't have one yet
+    </p>
+  </div>
+  <div
+    class="MuiCardActions-root-274"
+  >
+    <button
+      class="MuiButtonBase-root-303 MuiButtonBase-disabled-304 MuiButton-root-277 MuiButton-text-279 MuiButton-flat-282 MuiButton-sizeSmall-300 MuiButton-disabled-297 MuiCardActions-action-276"
+      disabled=""
+      tabindex="-1"
+      type="button"
+    >
+      <span
+        class="MuiButton-label-278"
+      >
+        OK
+      </span>
+    </button>
+    <button
+      class="MuiButtonBase-root-303 MuiButton-root-277 MuiButton-text-279 MuiButton-flat-282 MuiButton-sizeSmall-300 MuiCardActions-action-276"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        class="MuiButton-label-278"
+      >
+        Create one for me
+      </span>
+      <span
+        class="MuiTouchRipple-root-306"
+      />
+    </button>
+  </div>
+</div>
+`;

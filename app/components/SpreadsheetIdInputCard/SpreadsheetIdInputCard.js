@@ -20,7 +20,7 @@ const LoadingIcon = styled(CircularProgress)`
   margin: ${p => p.theme.spacing.unit};
 `;
 
-function SpreadsheetIdInputCard({
+export function SpreadsheetIdInputCard({
   onSubmitSId,
   onCreateNewSpreadsheet,
   isLoading,

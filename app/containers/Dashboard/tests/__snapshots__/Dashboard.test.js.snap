@@ -1,0 +1,360 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Dashboard /> Should render and match the snapshot 1`] = `
+<div
+  class="Dashboard__DashboardContainer-u5wi3k-0 focEzc"
+>
+  <div
+    class="MuiPaper-root-146 MuiPaper-elevation1-149 MuiPaper-rounded-147 MuiCard-root-145 content"
+  >
+    <div
+      class="MuiCardContent-root-173"
+    >
+      <h2
+        class="MuiTypography-root-174 MuiTypography-h5-190"
+      >
+        Goals and Expenses
+      </h2>
+      <div
+        class="MuiPaper-root-146 MuiPaper-elevation2-150 MuiPaper-rounded-147 DashboardContent-root-143"
+      >
+        <table
+          class="MuiTable-root-210"
+        >
+          <tbody
+            class="MuiTableBody-root-211"
+          />
+        </table>
+      </div>
+    </div>
+  </div>
+  <div />
+  <div />
+  <div
+    class="Dashboard-speedDialWrapper-141"
+  >
+    <div
+      class="MuiSpeedDial-root-228 MuiSpeedDial-directionUp-230 Dashboard-speedDial-142"
+    >
+      <button
+        aria-controls="Actionmenu-actions"
+        aria-expanded="false"
+        aria-haspopup="true"
+        aria-label="Action menu"
+        class="MuiButtonBase-root-246 MuiFab-root-236 MuiFab-primary-238 MuiSpeedDial-fab-229"
+        style="transform: scale(1); webkit-transition: transform 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; transition: transform 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;"
+        tabindex="0"
+        type="button"
+      >
+        <span
+          class="MuiFab-label-237"
+        >
+          <span
+            class="MuiSpeedDialIcon-root-249"
+          >
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root-255 MuiSpeedDialIcon-icon-250"
+              focusable="false"
+              role="presentation"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"
+              />
+            </svg>
+          </span>
+        </span>
+        <span
+          class="MuiTouchRipple-root-274"
+        />
+      </button>
+      <div
+        aria-orientation="vertical"
+        class="MuiSpeedDial-actions-234 MuiSpeedDial-actionsClosed-235 MuiSpeedDial-directionUp-230"
+        id="Actionmenu-actions"
+        role="menu"
+      >
+        <button
+          class="MuiButtonBase-root-246 MuiFab-root-236 MuiFab-sizeSmall-244 MuiSpeedDialAction-button-264 MuiSpeedDialAction-buttonClosed-265"
+          role="menuitem"
+          style="transition-delay: 60ms;"
+          tabindex="-1"
+          title="Add Income"
+          type="button"
+        >
+          <span
+            class="MuiFab-label-237"
+          >
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root-255"
+              focusable="false"
+              role="presentation"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"
+              />
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+            </svg>
+          </span>
+          <span
+            class="MuiTouchRipple-root-274"
+          />
+        </button>
+        <button
+          class="MuiButtonBase-root-246 MuiFab-root-236 MuiFab-sizeSmall-244 MuiSpeedDialAction-button-264 MuiSpeedDialAction-buttonClosed-265"
+          role="menuitem"
+          style="transition-delay: 30ms;"
+          tabindex="-1"
+          title="Add Expense"
+          type="button"
+        >
+          <span
+            class="MuiFab-label-237"
+          >
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root-255"
+              focusable="false"
+              role="presentation"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M18 17H6v-2h12v2zm0-4H6v-2h12v2zm0-4H6V7h12v2zM3 22l1.5-1.5L6 22l1.5-1.5L9 22l1.5-1.5L12 22l1.5-1.5L15 22l1.5-1.5L18 22l1.5-1.5L21 22V2l-1.5 1.5L18 2l-1.5 1.5L15 2l-1.5 1.5L12 2l-1.5 1.5L9 2 7.5 3.5 6 2 4.5 3.5 3 2v20z"
+              />
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+            </svg>
+          </span>
+          <span
+            class="MuiTouchRipple-root-274"
+          />
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<Dashboard /> when sId is not provided should render input component and match the snapshot 1`] = `
+<div
+  class="MuiPaper-root-284 MuiPaper-elevation1-287 MuiPaper-rounded-285 MuiCard-root-283"
+>
+  <div
+    class="MuiCardContent-root-311"
+  >
+    <h2
+      class="MuiTypography-root-312 MuiTypography-h4-327"
+    >
+      Please provide your spreadsheet Id
+    </h2>
+    <div
+      class="MuiFormControl-root-348 MuiFormControl-marginNormal-349 SpreadsheetIdInputCard__TextField-ocjwh8-0 ihlGeT"
+    >
+      <label
+        class="MuiFormLabel-root-363 MuiInputLabel-root-352 MuiInputLabel-formControl-357 MuiInputLabel-animated-360"
+        data-shrink="false"
+        for="spreadsheetId"
+      >
+        Your spreadsheet Id
+      </label>
+      <div
+        class="MuiInputBase-root-383 MuiInput-root-370 MuiInput-underline-374 MuiInputBase-formControl-384 MuiInput-formControl-371"
+      >
+        <input
+          aria-invalid="false"
+          class="MuiInputBase-input-393 MuiInput-input-378"
+          id="spreadsheetId"
+          type="text"
+          value=""
+        />
+      </div>
+    </div>
+    <p
+      class="MuiTypography-root-312 MuiTypography-subheading-319"
+    >
+      Or click 'Create one for me' if you don't have one yet
+    </p>
+  </div>
+  <div
+    class="MuiCardActions-root-400"
+  >
+    <button
+      class="MuiButtonBase-root-429 MuiButtonBase-disabled-430 MuiButton-root-403 MuiButton-text-405 MuiButton-flat-408 MuiButton-sizeSmall-426 MuiButton-disabled-423 MuiCardActions-action-402"
+      disabled=""
+      tabindex="-1"
+      type="button"
+    >
+      <span
+        class="MuiButton-label-404"
+      >
+        OK
+      </span>
+    </button>
+    <button
+      class="MuiButtonBase-root-429 MuiButton-root-403 MuiButton-text-405 MuiButton-flat-408 MuiButton-sizeSmall-426 MuiCardActions-action-402"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        class="MuiButton-label-404"
+      >
+        Create one for me
+      </span>
+      <span
+        class="MuiTouchRipple-root-432"
+      />
+    </button>
+  </div>
+</div>
+`;
+
+exports[`<Dashboard /> when sId is provided should not render input component and match the snapshot 1`] = `
+<div
+  class="Dashboard__DashboardContainer-u5wi3k-0 focEzc"
+>
+  <div
+    class="MuiPaper-root-444 MuiPaper-elevation1-447 MuiPaper-rounded-445 MuiCard-root-443 content"
+  >
+    <div
+      class="MuiCardContent-root-471"
+    >
+      <h2
+        class="MuiTypography-root-472 MuiTypography-h5-488"
+      >
+        Goals and Expenses
+      </h2>
+      <div
+        class="MuiPaper-root-444 MuiPaper-elevation2-448 MuiPaper-rounded-445 DashboardContent-root-441"
+      >
+        <table
+          class="MuiTable-root-508"
+        >
+          <tbody
+            class="MuiTableBody-root-509"
+          />
+        </table>
+      </div>
+    </div>
+  </div>
+  <div />
+  <div />
+  <div
+    class="Dashboard-speedDialWrapper-439"
+  >
+    <div
+      class="MuiSpeedDial-root-526 MuiSpeedDial-directionUp-528 Dashboard-speedDial-440"
+    >
+      <button
+        aria-controls="Actionmenu-actions"
+        aria-expanded="false"
+        aria-haspopup="true"
+        aria-label="Action menu"
+        class="MuiButtonBase-root-544 MuiFab-root-534 MuiFab-primary-536 MuiSpeedDial-fab-527"
+        style="transform: scale(1); webkit-transition: transform 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; transition: transform 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;"
+        tabindex="0"
+        type="button"
+      >
+        <span
+          class="MuiFab-label-535"
+        >
+          <span
+            class="MuiSpeedDialIcon-root-547"
+          >
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root-553 MuiSpeedDialIcon-icon-548"
+              focusable="false"
+              role="presentation"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"
+              />
+            </svg>
+          </span>
+        </span>
+        <span
+          class="MuiTouchRipple-root-572"
+        />
+      </button>
+      <div
+        aria-orientation="vertical"
+        class="MuiSpeedDial-actions-532 MuiSpeedDial-actionsClosed-533 MuiSpeedDial-directionUp-528"
+        id="Actionmenu-actions"
+        role="menu"
+      >
+        <button
+          class="MuiButtonBase-root-544 MuiFab-root-534 MuiFab-sizeSmall-542 MuiSpeedDialAction-button-562 MuiSpeedDialAction-buttonClosed-563"
+          role="menuitem"
+          style="transition-delay: 60ms;"
+          tabindex="-1"
+          title="Add Income"
+          type="button"
+        >
+          <span
+            class="MuiFab-label-535"
+          >
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root-553"
+              focusable="false"
+              role="presentation"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"
+              />
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+            </svg>
+          </span>
+          <span
+            class="MuiTouchRipple-root-572"
+          />
+        </button>
+        <button
+          class="MuiButtonBase-root-544 MuiFab-root-534 MuiFab-sizeSmall-542 MuiSpeedDialAction-button-562 MuiSpeedDialAction-buttonClosed-563"
+          role="menuitem"
+          style="transition-delay: 30ms;"
+          tabindex="-1"
+          title="Add Expense"
+          type="button"
+        >
+          <span
+            class="MuiFab-label-535"
+          >
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root-553"
+              focusable="false"
+              role="presentation"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M18 17H6v-2h12v2zm0-4H6v-2h12v2zm0-4H6V7h12v2zM3 22l1.5-1.5L6 22l1.5-1.5L9 22l1.5-1.5L12 22l1.5-1.5L15 22l1.5-1.5L18 22l1.5-1.5L21 22V2l-1.5 1.5L18 2l-1.5 1.5L15 2l-1.5 1.5L12 2l-1.5 1.5L9 2 7.5 3.5 6 2 4.5 3.5 3 2v20z"
+              />
+              <path
+                d="M0 0h24v24H0z"
+                fill="none"
+              />
+            </svg>
+          </span>
+          <span
+            class="MuiTouchRipple-root-572"
+          />
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;

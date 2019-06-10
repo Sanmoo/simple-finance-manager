@@ -90,6 +90,7 @@ export function EditEntryPage({
     const mode = modeFromLocation(location);
     let promise;
     if (mode === TYPE_EXPENSE) {
+      console.log('Confirmo que passei por aqui!');
       promise = loadExpenseCategoriesFromCurrentMonthCategoryGoals();
     } else {
       promise = loadIncomeCategoriesFromCurrentMonthCategoryGoals();

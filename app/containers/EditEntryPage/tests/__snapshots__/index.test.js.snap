@@ -23,7 +23,7 @@ exports[`<EditEntryPage /> Should render and match the snapshot 1`] = `
           class="MuiInputBase-input-173 MuiInput-input-158 MuiInputBase-inputType-176 MuiInput-inputType-161 MuiInputBase-inputMarginDense-174 MuiInput-inputMarginDense-159"
           id="entry-date"
           type="date"
-          value="2019-06-02"
+          value="2019-06-10"
         />
       </div>
     </div>

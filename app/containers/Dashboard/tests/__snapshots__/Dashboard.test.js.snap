@@ -5,24 +5,24 @@ exports[`<Dashboard /> Should render and match the snapshot 1`] = `
   class="Dashboard__DashboardContainer-u5wi3k-0 focEzc"
 >
   <div
-    class="MuiPaper-root-146 MuiPaper-elevation1-149 MuiPaper-rounded-147 MuiCard-root-145 content"
+    class="MuiPaper-root-142 MuiPaper-elevation1-145 MuiPaper-rounded-143 MuiCard-root-141 content"
   >
     <div
-      class="MuiCardContent-root-173"
+      class="MuiCardContent-root-169"
     >
       <h2
-        class="MuiTypography-root-174 MuiTypography-h5-190"
+        class="MuiTypography-root-170 MuiTypography-h5-186"
       >
         Goals and Expenses
       </h2>
       <div
-        class="MuiPaper-root-146 MuiPaper-elevation2-150 MuiPaper-rounded-147 DashboardContent-root-143"
+        class="MuiPaper-root-142 MuiPaper-elevation2-146 MuiPaper-rounded-143 DashboardContent-root-139"
       >
         <table
-          class="MuiTable-root-210"
+          class="MuiTable-root-206"
         >
           <tbody
-            class="MuiTableBody-root-211"
+            class="MuiTableBody-root-207"
           />
         </table>
       </div>
@@ -30,31 +30,29 @@ exports[`<Dashboard /> Should render and match the snapshot 1`] = `
   </div>
   <div />
   <div />
-  <div
-    class="Dashboard-speedDialWrapper-141"
-  >
+  <div>
     <div
-      class="MuiSpeedDial-root-228 MuiSpeedDial-directionUp-230 Dashboard-speedDial-142"
+      class="MuiSpeedDial-root-224 MuiSpeedDial-directionUp-226"
     >
       <button
         aria-controls="Actionmenu-actions"
         aria-expanded="false"
         aria-haspopup="true"
         aria-label="Action menu"
-        class="MuiButtonBase-root-246 MuiFab-root-236 MuiFab-primary-238 MuiSpeedDial-fab-229"
+        class="MuiButtonBase-root-242 MuiFab-root-232 MuiFab-primary-234 MuiSpeedDial-fab-225"
         style="transform: scale(1); webkit-transition: transform 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; transition: transform 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;"
         tabindex="0"
         type="button"
       >
         <span
-          class="MuiFab-label-237"
+          class="MuiFab-label-233"
         >
           <span
-            class="MuiSpeedDialIcon-root-249"
+            class="MuiSpeedDialIcon-root-245"
           >
             <svg
               aria-hidden="true"
-              class="MuiSvgIcon-root-255 MuiSpeedDialIcon-icon-250"
+              class="MuiSvgIcon-root-251 MuiSpeedDialIcon-icon-246"
               focusable="false"
               role="presentation"
               viewBox="0 0 24 24"
@@ -66,17 +64,17 @@ exports[`<Dashboard /> Should render and match the snapshot 1`] = `
           </span>
         </span>
         <span
-          class="MuiTouchRipple-root-274"
+          class="MuiTouchRipple-root-270"
         />
       </button>
       <div
         aria-orientation="vertical"
-        class="MuiSpeedDial-actions-234 MuiSpeedDial-actionsClosed-235 MuiSpeedDial-directionUp-230"
+        class="MuiSpeedDial-actions-230 MuiSpeedDial-actionsClosed-231 MuiSpeedDial-directionUp-226"
         id="Actionmenu-actions"
         role="menu"
       >
         <button
-          class="MuiButtonBase-root-246 MuiFab-root-236 MuiFab-sizeSmall-244 MuiSpeedDialAction-button-264 MuiSpeedDialAction-buttonClosed-265"
+          class="MuiButtonBase-root-242 MuiFab-root-232 MuiFab-sizeSmall-240 MuiSpeedDialAction-button-260 MuiSpeedDialAction-buttonClosed-261"
           role="menuitem"
           style="transition-delay: 60ms;"
           tabindex="-1"
@@ -84,11 +82,11 @@ exports[`<Dashboard /> Should render and match the snapshot 1`] = `
           type="button"
         >
           <span
-            class="MuiFab-label-237"
+            class="MuiFab-label-233"
           >
             <svg
               aria-hidden="true"
-              class="MuiSvgIcon-root-255"
+              class="MuiSvgIcon-root-251"
               focusable="false"
               role="presentation"
               viewBox="0 0 24 24"
@@ -103,11 +101,11 @@ exports[`<Dashboard /> Should render and match the snapshot 1`] = `
             </svg>
           </span>
           <span
-            class="MuiTouchRipple-root-274"
+            class="MuiTouchRipple-root-270"
           />
         </button>
         <button
-          class="MuiButtonBase-root-246 MuiFab-root-236 MuiFab-sizeSmall-244 MuiSpeedDialAction-button-264 MuiSpeedDialAction-buttonClosed-265"
+          class="MuiButtonBase-root-242 MuiFab-root-232 MuiFab-sizeSmall-240 MuiSpeedDialAction-button-260 MuiSpeedDialAction-buttonClosed-261"
           role="menuitem"
           style="transition-delay: 30ms;"
           tabindex="-1"
@@ -115,11 +113,11 @@ exports[`<Dashboard /> Should render and match the snapshot 1`] = `
           type="button"
         >
           <span
-            class="MuiFab-label-237"
+            class="MuiFab-label-233"
           >
             <svg
               aria-hidden="true"
-              class="MuiSvgIcon-root-255"
+              class="MuiSvgIcon-root-251"
               focusable="false"
               role="presentation"
               viewBox="0 0 24 24"
@@ -134,7 +132,7 @@ exports[`<Dashboard /> Should render and match the snapshot 1`] = `
             </svg>
           </span>
           <span
-            class="MuiTouchRipple-root-274"
+            class="MuiTouchRipple-root-270"
           />
         </button>
       </div>
@@ -145,32 +143,32 @@ exports[`<Dashboard /> Should render and match the snapshot 1`] = `
 
 exports[`<Dashboard /> when sId is not provided should render input component and match the snapshot 1`] = `
 <div
-  class="MuiPaper-root-284 MuiPaper-elevation1-287 MuiPaper-rounded-285 MuiCard-root-283"
+  class="MuiPaper-root-278 MuiPaper-elevation1-281 MuiPaper-rounded-279 MuiCard-root-277"
 >
   <div
-    class="MuiCardContent-root-311"
+    class="MuiCardContent-root-305"
   >
     <h2
-      class="MuiTypography-root-312 MuiTypography-h4-327"
+      class="MuiTypography-root-306 MuiTypography-h4-321"
     >
       Please provide your spreadsheet Id
     </h2>
     <div
-      class="MuiFormControl-root-348 MuiFormControl-marginNormal-349 SpreadsheetIdInputCard__TextField-ocjwh8-0 ihlGeT"
+      class="MuiFormControl-root-342 MuiFormControl-marginNormal-343 SpreadsheetIdInputCard__TextField-ocjwh8-0 ihlGeT"
     >
       <label
-        class="MuiFormLabel-root-363 MuiInputLabel-root-352 MuiInputLabel-formControl-357 MuiInputLabel-animated-360"
+        class="MuiFormLabel-root-357 MuiInputLabel-root-346 MuiInputLabel-formControl-351 MuiInputLabel-animated-354"
         data-shrink="false"
         for="spreadsheetId"
       >
         Your spreadsheet Id
       </label>
       <div
-        class="MuiInputBase-root-383 MuiInput-root-370 MuiInput-underline-374 MuiInputBase-formControl-384 MuiInput-formControl-371"
+        class="MuiInputBase-root-377 MuiInput-root-364 MuiInput-underline-368 MuiInputBase-formControl-378 MuiInput-formControl-365"
       >
         <input
           aria-invalid="false"
-          class="MuiInputBase-input-393 MuiInput-input-378"
+          class="MuiInputBase-input-387 MuiInput-input-372"
           id="spreadsheetId"
           type="text"
           value=""
@@ -178,38 +176,38 @@ exports[`<Dashboard /> when sId is not provided should render input component an
       </div>
     </div>
     <p
-      class="MuiTypography-root-312 MuiTypography-subheading-319"
+      class="MuiTypography-root-306 MuiTypography-subheading-313"
     >
       Or click 'Create one for me' if you don't have one yet
     </p>
   </div>
   <div
-    class="MuiCardActions-root-400"
+    class="MuiCardActions-root-394"
   >
     <button
-      class="MuiButtonBase-root-429 MuiButtonBase-disabled-430 MuiButton-root-403 MuiButton-text-405 MuiButton-flat-408 MuiButton-sizeSmall-426 MuiButton-disabled-423 MuiCardActions-action-402"
+      class="MuiButtonBase-root-423 MuiButtonBase-disabled-424 MuiButton-root-397 MuiButton-text-399 MuiButton-flat-402 MuiButton-sizeSmall-420 MuiButton-disabled-417 MuiCardActions-action-396"
       disabled=""
       tabindex="-1"
       type="button"
     >
       <span
-        class="MuiButton-label-404"
+        class="MuiButton-label-398"
       >
         OK
       </span>
     </button>
     <button
-      class="MuiButtonBase-root-429 MuiButton-root-403 MuiButton-text-405 MuiButton-flat-408 MuiButton-sizeSmall-426 MuiCardActions-action-402"
+      class="MuiButtonBase-root-423 MuiButton-root-397 MuiButton-text-399 MuiButton-flat-402 MuiButton-sizeSmall-420 MuiCardActions-action-396"
       tabindex="0"
       type="button"
     >
       <span
-        class="MuiButton-label-404"
+        class="MuiButton-label-398"
       >
         Create one for me
       </span>
       <span
-        class="MuiTouchRipple-root-432"
+        class="MuiTouchRipple-root-426"
       />
     </button>
   </div>
@@ -221,24 +219,24 @@ exports[`<Dashboard /> when sId is provided should not render input component an
   class="Dashboard__DashboardContainer-u5wi3k-0 focEzc"
 >
   <div
-    class="MuiPaper-root-444 MuiPaper-elevation1-447 MuiPaper-rounded-445 MuiCard-root-443 content"
+    class="MuiPaper-root-436 MuiPaper-elevation1-439 MuiPaper-rounded-437 MuiCard-root-435 content"
   >
     <div
-      class="MuiCardContent-root-471"
+      class="MuiCardContent-root-463"
     >
       <h2
-        class="MuiTypography-root-472 MuiTypography-h5-488"
+        class="MuiTypography-root-464 MuiTypography-h5-480"
       >
         Goals and Expenses
       </h2>
       <div
-        class="MuiPaper-root-444 MuiPaper-elevation2-448 MuiPaper-rounded-445 DashboardContent-root-441"
+        class="MuiPaper-root-436 MuiPaper-elevation2-440 MuiPaper-rounded-437 DashboardContent-root-433"
       >
         <table
-          class="MuiTable-root-508"
+          class="MuiTable-root-500"
         >
           <tbody
-            class="MuiTableBody-root-509"
+            class="MuiTableBody-root-501"
           />
         </table>
       </div>
@@ -246,31 +244,29 @@ exports[`<Dashboard /> when sId is provided should not render input component an
   </div>
   <div />
   <div />
-  <div
-    class="Dashboard-speedDialWrapper-439"
-  >
+  <div>
     <div
-      class="MuiSpeedDial-root-526 MuiSpeedDial-directionUp-528 Dashboard-speedDial-440"
+      class="MuiSpeedDial-root-518 MuiSpeedDial-directionUp-520"
     >
       <button
         aria-controls="Actionmenu-actions"
         aria-expanded="false"
         aria-haspopup="true"
         aria-label="Action menu"
-        class="MuiButtonBase-root-544 MuiFab-root-534 MuiFab-primary-536 MuiSpeedDial-fab-527"
+        class="MuiButtonBase-root-536 MuiFab-root-526 MuiFab-primary-528 MuiSpeedDial-fab-519"
         style="transform: scale(1); webkit-transition: transform 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; transition: transform 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;"
         tabindex="0"
         type="button"
       >
         <span
-          class="MuiFab-label-535"
+          class="MuiFab-label-527"
         >
           <span
-            class="MuiSpeedDialIcon-root-547"
+            class="MuiSpeedDialIcon-root-539"
           >
             <svg
               aria-hidden="true"
-              class="MuiSvgIcon-root-553 MuiSpeedDialIcon-icon-548"
+              class="MuiSvgIcon-root-545 MuiSpeedDialIcon-icon-540"
               focusable="false"
               role="presentation"
               viewBox="0 0 24 24"
@@ -282,17 +278,17 @@ exports[`<Dashboard /> when sId is provided should not render input component an
           </span>
         </span>
         <span
-          class="MuiTouchRipple-root-572"
+          class="MuiTouchRipple-root-564"
         />
       </button>
       <div
         aria-orientation="vertical"
-        class="MuiSpeedDial-actions-532 MuiSpeedDial-actionsClosed-533 MuiSpeedDial-directionUp-528"
+        class="MuiSpeedDial-actions-524 MuiSpeedDial-actionsClosed-525 MuiSpeedDial-directionUp-520"
         id="Actionmenu-actions"
         role="menu"
       >
         <button
-          class="MuiButtonBase-root-544 MuiFab-root-534 MuiFab-sizeSmall-542 MuiSpeedDialAction-button-562 MuiSpeedDialAction-buttonClosed-563"
+          class="MuiButtonBase-root-536 MuiFab-root-526 MuiFab-sizeSmall-534 MuiSpeedDialAction-button-554 MuiSpeedDialAction-buttonClosed-555"
           role="menuitem"
           style="transition-delay: 60ms;"
           tabindex="-1"
@@ -300,11 +296,11 @@ exports[`<Dashboard /> when sId is provided should not render input component an
           type="button"
         >
           <span
-            class="MuiFab-label-535"
+            class="MuiFab-label-527"
           >
             <svg
               aria-hidden="true"
-              class="MuiSvgIcon-root-553"
+              class="MuiSvgIcon-root-545"
               focusable="false"
               role="presentation"
               viewBox="0 0 24 24"
@@ -319,11 +315,11 @@ exports[`<Dashboard /> when sId is provided should not render input component an
             </svg>
           </span>
           <span
-            class="MuiTouchRipple-root-572"
+            class="MuiTouchRipple-root-564"
           />
         </button>
         <button
-          class="MuiButtonBase-root-544 MuiFab-root-534 MuiFab-sizeSmall-542 MuiSpeedDialAction-button-562 MuiSpeedDialAction-buttonClosed-563"
+          class="MuiButtonBase-root-536 MuiFab-root-526 MuiFab-sizeSmall-534 MuiSpeedDialAction-button-554 MuiSpeedDialAction-buttonClosed-555"
           role="menuitem"
           style="transition-delay: 30ms;"
           tabindex="-1"
@@ -331,11 +327,11 @@ exports[`<Dashboard /> when sId is provided should not render input component an
           type="button"
         >
           <span
-            class="MuiFab-label-535"
+            class="MuiFab-label-527"
           >
             <svg
               aria-hidden="true"
-              class="MuiSvgIcon-root-553"
+              class="MuiSvgIcon-root-545"
               focusable="false"
               role="presentation"
               viewBox="0 0 24 24"
@@ -350,7 +346,7 @@ exports[`<Dashboard /> when sId is provided should not render input component an
             </svg>
           </span>
           <span
-            class="MuiTouchRipple-root-572"
+            class="MuiTouchRipple-root-564"
           />
         </button>
       </div>

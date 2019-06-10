@@ -11,7 +11,7 @@ import { render } from 'react-testing-library';
 import { IntlProvider } from 'react-intl';
 import 'fake-indexeddb/auto';
 
-import Dashboard from '../Dashboard';
+import { Dashboard } from '../Dashboard';
 import { DEFAULT_LOCALE } from '../../../i18n';
 
 describe('<Dashboard />', () => {
@@ -31,6 +31,7 @@ describe('<Dashboard />', () => {
       onCreateSheetFromGenericTemplate: jest.fn(),
       onTrySyncAgain: jest.fn(),
       onCreateSheetFromPreviousMonth: jest.fn(),
+      classes: {},
     };
   });
 

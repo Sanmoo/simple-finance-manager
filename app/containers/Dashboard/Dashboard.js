@@ -38,7 +38,7 @@ const actions = [
   { icon: <ReceiptIcon />, name: 'Add Expense' },
 ];
 
-function Dashboard({
+export function Dashboard({
   sId,
   dashInfo,
   classes,

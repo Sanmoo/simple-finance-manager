@@ -76,7 +76,7 @@
     "cross-env": "5.2.0",
     "date-fns": "^2.0.0-alpha.27",
     "dexie": "^2.0.4",
-    "express": "4.16.4",
+    "express": "4.17.3",
     "fontfaceobserver": "2.1.0",
     "history": "4.9.0",
     "hoist-non-react-statics": "3.3.0",
